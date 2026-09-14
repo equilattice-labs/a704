@@ -1,0 +1,68 @@
+﻿<script setup>
+import { ref, computed, onMounted } from 'vue'
+import { ethers } from 'ethers'
+import { CHAIN_PARAMS, CONTRACT_ADDRESS } from './config'
+import tokenAbi from './abi/RobinhoodCommons.json'
+const activeNav = ref('Overview')
+const connected = ref(false)
+const account = ref('')
+const balance = ref('0.00')
+const toast = ref('')
+const showStake = ref(false)
+const showDocs = ref(false)
+const stakeAmount = ref('')
+const activePool = ref('Depthalis / Robin')
+const network = ref('Robinhood Testnet')
+const isConnecting = ref(false)
+const tokenAddress = CONTRACT_ADDRESS
+const tokenBalance = ref('0.00')
+const nav = ['Overview','Pools','Staking','Governance']
+const pools = [
+  {name:'Depthalis / Robin', pair:'DPHL / RBH', apy:'42.8%', tvl:'$18.4M', risk:'Low', color:'violet', change:'+12.4%'},
+  {name:'Robin / USDC', pair:'RBH / USDC', apy:'28.6%', tvl:'$11.2M', risk:'Low', color:'blue', change:'+8.7%'},
+  {name:'Depthalis / ETH', pair:'DPHL / ETH', apy:'67.1%', tvl:'$6.8M', risk:'Medium', color:'pink', change:'+24.1%'}
+]
+const selectedPool = computed(() => pools.find(p => p.name === activePool.value) || pools[0])
+const shortAccount = computed(() => account.value ? `${account.value.slice(0,6)}...${account.value.slice(-4)}` : '')
+function notify(message) { toast.value = message; setTimeout(() => toast.value = '', 3400) }
+async function connectWallet() { if (!window.ethereum) { notify('Install MetaMask or another EVM wallet to continue.'); return }; isConnecting.value=true; try { const provider=new ethers.BrowserProvider(window.ethereum); const accounts=await provider.send('eth_requestAccounts',[]); account.value=accounts[0]; const bal=await provider.getBalance(account.value); balance.value=Number(ethers.formatEther(bal)).toFixed(3); connected.value=true; await refreshTokenBalance(provider); notify('Wallet connected to Robinhood Chain Testnet') } catch(e) { notify(e?.message?.includes('denied')?'Connection request was declined.':'Could not connect wallet.') } finally { isConnecting.value=false } }
+async function refreshTokenBalance(provider) { if(!tokenAddress||!account.value)return; try { const token=new ethers.Contract(tokenAddress,tokenAbi,provider); const raw=await token.balanceOf(account.value); tokenBalance.value=Number(ethers.formatUnits(raw,18)).toFixed(2) } catch { tokenBalance.value='0.00' } }
+async function claimFaucet() { if(!connected.value)return connectWallet(); if(!tokenAddress||!window.ethereum){notify('Contract address is not configured yet.');return}; try { const provider=new ethers.BrowserProvider(window.ethereum); const signer=await provider.getSigner(); const token=new ethers.Contract(tokenAddress,tokenAbi,signer); const tx=await token.claimFaucet(); notify('Faucet transaction submitted...'); await tx.wait(); await refreshTokenBalance(provider); notify('100 HOOD test tokens claimed') } catch { notify('Faucet claim was declined or is cooling down.') } }
+function disconnect(){connected.value=false;account.value='';balance.value='0.00';notify('Wallet disconnected')}
+async function switchNetwork(){if(!window.ethereum)return connectWallet();try{await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:CHAIN_PARAMS.chainId}]});notify('Network switched to Robinhood Testnet')}catch(e){notify('Add Robinhood Chain Testnet in your wallet to continue.')}}
+function openStake(pool){activePool.value=pool.name;showStake.value=true}
+function openDocs(){showDocs.value=true}
+function confirmStake(){if(!connected.value){showStake.value=false;connectWallet();return};if(!stakeAmount.value||Number(stakeAmount.value)<=0){notify('Enter an amount to stake.');return};showStake.value=false;notify(`Stake request for ${stakeAmount.value} ${selectedPool.value.pair.split(' / ')[0]} queued`);stakeAmount.value=''}
+function navTo(item){activeNav.value=item;if(item!=='Overview')notify(`${item} module is coming online soon`)}
+onMounted(()=>{if(window.ethereum)window.ethereum.on?.('accountsChanged',a=>{if(a?.length){account.value=a[0];connected.value=true}else disconnect()})})
+</script><template>
+  <div class="app-shell">
+    <div class="grain"></div>
+    <aside class="sidebar">
+      <div class="brand" @click="navTo('Overview')">
+        <div class="brand-mark"><span></span><span></span><span></span></div>
+        <div><strong>DEPTH<span>ALIS</span></strong><small>LIQUIDITY, IN MOTION</small></div>
+      </div>
+      <div class="side-label">WORKSPACE</div>
+      <nav class="side-nav">
+        <button v-for="item in nav" :key="item" :class="{active: activeNav===item}" @click="navTo(item)"><span class="nav-icon">{{item==='Overview'?'◈':item==='Pools'?'◌':item==='Staking'?'↗':'✦'}}</span>{{item}}<i v-if="item==='Pools'">3</i></button>
+      </nav>
+      <div class="sidebar-bottom"><div class="side-label">NETWORK</div><div class="network-card"><span class="status-dot"></span><div><b>Robinhood Testnet</b><small>Chain ID 46630</small></div></div><button class="docs-link" @click="openDocs">Protocol brief <span>↗</span></button></div>
+    </aside>
+    <main class="workspace">
+      <header class="topbar"><div class="mobile-brand">DEPTH<span>ALIS</span></div><div class="crumb">OVERVIEW <span>/</span> LIQUIDITY DESK</div><div class="top-actions"><div class="block-pill"><span class="status-dot"></span> Block #8,421,903</div><button v-if="!connected" class="connect-btn" @click="connectWallet">{{isConnecting ? 'Connecting…' : 'Connect wallet'}} <span>↗</span></button><button v-else class="account-btn" @click="disconnect"><span class="status-dot"></span>{{shortAccount}}</button></div></header>
+      <section class="welcome-row"><div><div class="eyebrow"><span class="eyebrow-line"></span> LIVE ON ROBINHOOD CHAIN</div><h1>Capital that<br><em>keeps moving.</em></h1><p class="lead">A calmer way to swap, earn and coordinate liquidity. Put your assets to work with transparent pools and human-readable risk.</p><div class="hero-cta"><button class="primary" @click="connected ? openStake(pools[0]) : connectWallet()">{{connected ? 'Start earning' : 'Enter the protocol'}} <b>↗</b></button><button class="text-btn" @click="switchNetwork">View network <span>↗</span></button></div></div><div class="hero-orbit"><div class="orbit-ring ring-a"></div><div class="orbit-ring ring-b"></div><div class="orbit-core"><span>DPHL</span><small>LIQUIDITY<br>COORDINATED</small></div><div class="orbit-tag tag-one"><small>POOL APY</small><strong>67.1%</strong></div><div class="orbit-tag tag-two"><small>TVL</small><strong>$36.4M</strong><span>+18.6%</span></div></div></section>
+      <section class="market-strip"><div><small>DPHL</small><strong>$0.0842</strong><b>+6.42%</b></div><div><small>RBH</small><strong>$1.274</strong><b>+3.18%</b></div><div><small>TVL</small><strong>$36.42M</strong><b>+18.6%</b></div><div class="market-note">24H VOLUME <strong>$4.82M</strong><b>+11.9%</b></div></section>
+      <section class="dashboard-grid"><div class="pools-section"><div class="section-heading"><div><div class="eyebrow">DISCOVER OPPORTUNITIES</div><h2>Choose your current.</h2></div><button class="filter-btn">All pools <span>⌄</span></button></div><div class="pool-list"><article v-for="(pool,index) in pools" :key="pool.name" class="pool-card" :class="'pool-'+index"><div class="pool-top"><div class="pair-icon" :class="pool.color"><span>{{pool.pair.split(' / ')[0].slice(0,1)}}</span><span>{{pool.pair.split(' / ')[1].slice(0,1)}}</span></div><div><h3>{{pool.name}}</h3><small>{{pool.pair}}</small></div><div class="risk" :class="pool.risk.toLowerCase()">{{pool.risk}} risk</div></div><div class="pool-bottom"><div><small>APY</small><strong class="apy">{{pool.apy}}</strong></div><div><small>TVL</small><strong>{{pool.tvl}}</strong></div><div><small>7D</small><strong class="up">{{pool.change}}</strong></div><button class="stake-btn" @click="openStake(pool)">Provide liquidity <span>↗</span></button></div><div class="sparkline"><svg viewBox="0 0 420 34" preserveAspectRatio="none"><path d="M0 27 C35 28 43 16 70 21 S105 31 131 16 S164 19 190 12 S228 17 252 9 S284 12 309 6 S342 15 364 4 S397 11 420 2" fill="none" stroke="currentColor" stroke-width="2"/></svg></div></article></div></div>
+        <aside class="right-rail"><div class="panel position-panel"><div class="panel-heading"><span>Your position</span><span class="live-tag">LIVE</span></div><div class="position-empty" v-if="!connected"><div class="empty-orbit">+</div><h3>Make this desk yours.</h3><p>Connect a wallet to see balances, rewards and voting power.</p><button class="outline-btn" @click="connectWallet">Connect wallet <span>↗</span></button></div><div v-else class="position-data"><div class="position-value"><small>Portfolio value</small><strong>${{(Number(balance)*1.274).toFixed(2)}}</strong><span class="up">+0.00% today</span></div><div class="position-row"><span>Available balance</span><b>{{balance}} RBH</b></div><div class="position-row"><span>Unclaimed rewards</span><b class="purple">0.00 DPHL</b></div><div class="position-row"><span>HOOD test balance</span><b>{{tokenBalance}}</b></div><button class="outline-btn full" @click="claimFaucet">Claim testnet HOOD</button><button class="primary full" @click="openStake(pools[0])">Manage position ↗</button></div></div><div class="panel pulse-panel"><div class="panel-heading"><span>Protocol pulse</span><span class="green-dot"></span></div><div class="pulse-stat"><div class="pulse-label"><span>Utilization</span><b>74.2%</b></div><div class="progress"><i style="width:74.2%"></i></div></div><div class="pulse-stat"><div class="pulse-label"><span>Active LPs</span><b>12,842</b></div><div class="progress blue"><i style="width:62%"></i></div></div><div class="pulse-stat"><div class="pulse-label"><span>Avg. lock time</span><b>21 days</b></div><div class="progress pink"><i style="width:38%"></i></div></div><button class="docs-link" @click="openDocs">Read the protocol brief <span>↗</span></button></div></aside></section>
+      <section class="bottom-cta"><div><div class="eyebrow">THE NEXT BLOCK IS YOURS</div><h2>Give your liquidity a direction.</h2></div><button class="primary" @click="connected ? openStake(pools[2]) : connectWallet()">{{connected ? 'Explore high yield' : 'Connect and explore'}} <b>↗</b></button></section>
+      <footer><div class="brand-mini">◈ DEPTHALIS</div><span>© 2025 Depthalis Protocol</span><div class="footer-links"><button class="footer-link" @click="openDocs">Docs</button><a href="https://x.com/Depthalis" target="_blank" rel="noopener noreferrer">X ↗</a></div></footer>
+    </main>
+    <div v-if="showDocs" class="modal-backdrop" @click.self="showDocs=false"><div class="modal docs-modal" role="dialog" aria-modal="true" aria-labelledby="docs-title"><button class="modal-close" aria-label="Close protocol brief" @click="showDocs=false">×</button><div class="eyebrow">DEPTHALIS DOCS</div><h2 id="docs-title">Protocol brief</h2><p class="modal-sub">A quick guide to providing liquidity on Robinhood Chain Testnet.</p><div class="docs-section"><h3>How it works</h3><p>Depthalis routes swaps through community-owned pools. Liquidity providers deposit one asset, earn a share of trading fees and can withdraw at any time.</p></div><div class="docs-section"><h3>Get started</h3><ol><li>Connect an EVM wallet and switch to Robinhood Chain Testnet.</li><li>Choose a pool by APY, TVL and risk profile.</li><li>Enter an amount, review the estimate, then confirm the deposit.</li></ol></div><div class="docs-section"><h3>Testnet notes</h3><p>HOOD is a faucet token for testing only. Faucet claims have a cooldown; testnet balances have no cash value.</p></div><button class="primary full" @click="showDocs=false">Explore pools <b>↗</b></button></div></div>
+    <div v-if="showStake" class="modal-backdrop" @click.self="showStake=false"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="stake-title"><button class="modal-close" aria-label="Close liquidity form" @click="showStake=false">×</button><div class="eyebrow">PROVIDE LIQUIDITY</div><h2 id="stake-title">{{selectedPool.name}}</h2><p class="modal-sub">Deposit assets into the pool and start earning fees instantly.</p><label class="amount-label" for="stake-amount">Amount to deposit</label><div class="amount-field"><input id="stake-amount" v-model="stakeAmount" type="number" min="0" placeholder="0.00"/><span>{{selectedPool.pair.split(' / ')[0]}}</span></div><div class="modal-details"><span>Estimated APY <b class="up">{{selectedPool.apy}}</b></span><span>Network fee <b>~0.002 RBH</b></span></div><button class="primary full" @click="confirmStake">{{connected ? 'Confirm deposit ↗' : 'Connect wallet'}}</button><small class="modal-foot">You remain in control of your funds at all times.</small></div></div>
+    <transition name="toast"><div v-if="toast" class="toast" role="status" aria-live="polite">● {{toast}}</div></transition>
+  </div>
+</template>
+
+
+
