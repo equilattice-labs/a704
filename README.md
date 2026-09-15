@@ -1,9 +1,28 @@
-# Depthena deployment
-The frontend reads the deployed contract from `VITE_CONTRACT_ADDRESS` in `.env`.
-Set your private key only in the deployment environment (never commit it). The app supports Robinhood Chain Testnet (chain id 46630) and prompts users to switch networks before signing.
+# Harbaxis frontend
 
-Display brand: **Depthena**; slug: `depthena`; existing presentation ticker: `PTV`. The deployed token remains Robinhood Commons (`HOOD`).
+**Liquidity, on your axis.** A Vue 3 / Vite liquidity exploration workspace for Robinhood Chain Testnet (chain ID 46630).
 
-The proposed website `https://www.depthena.xyz/` and X handle `@depthena_xyz` are unverified placeholders. Confirm ownership and complete external setup before publication. See the root `BRAND_IDENTITY.md` for the identity map and historical link notes.
+## Local use
 
-Set optional `VITE_X_URL` to the confirmed official X profile, then rebuild. With no configured account, the footer displays "X soon". Draft media continue to use the planned handle until external setup is complete.
+```sh
+npm install
+npm run dev
+npm test
+npm run build
+```
+
+The application offers pool discovery and local position previews. Pool metrics and positions are simulations; creating a preview does not deposit funds. Overview, Pools, Positions, and Governance organize the experience around distinct tasks. Governance content describes future scope.
+
+## Public configuration
+
+Copy `.env.example` to `.env`. The frontend reads the configured token address from `VITE_CONTRACT_ADDRESS` and uses `VITE_CHAIN_ID`, `VITE_RPC_URL`, and `VITE_EXPLORER_URL` for testnet interactions. A zero address is an unconfigured example, not a faucet deployment. Every `VITE_` value is public in a frontend bundle: keep private keys exclusively in the contract deployment environment.
+
+Wallet connection and the HOOD faucet use the Robinhood Chain Testnet. The app checks or switches the chain before a faucet transaction. Test tokens have no cash value; the faucet does not create liquidity positions.
+
+Set optional `VITE_X_URL` only to the confirmed official X profile, then rebuild. An empty value leaves the social destination unconfigured. Harbaxis domains and handles have not been verified or registered by this update.
+
+## Identity and verification
+
+Display brand: **Harbaxis**; slug: `harbaxis`. The testnet token remains Robinhood Commons (`HOOD`), and the contract/ABI remains `RobinhoodCommons`. Historical `PTV` is not a newly selected token symbol. See the root `BRAND_IDENTITY.md` for the replacement map.
+
+`website/` and `website/a704/` share the same frontend source and current public artwork. Build each copy from its own folder. Current verification is recorded in the root `BRAND_UPDATE_SCAN.md` and `UX_VALIDATION.md`.

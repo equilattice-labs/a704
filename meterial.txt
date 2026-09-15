@@ -1,14 +1,18 @@
-Project brand: Depthena
-Slug: depthena
-Existing presentation ticker: PTV
-Tagline: Depth-first liquidity
+﻿Project brand: Harbaxis
+Slug: harbaxis
+Tagline: Liquidity, on your axis.
 Network: Robinhood Chain Testnet (chain ID 46630)
 Deployed testnet token: Robinhood Commons (HOOD)
+Contract/ABI identifier: RobinhoodCommons (unchanged)
+Historical presentation ticker: PTV (no new token symbol selected)
 
-Planned Twitter/X handle: @depthena_xyz (unverified placeholder)
-Planned domain: https://www.depthena.xyz/ (unverified placeholder)
+Experience: pool discovery and local position previews with simulated metrics.
+Testnet functionality: EVM wallet connection and configured HOOD faucet.
+Local pool previews do not submit deposits. Test tokens have no cash value.
 
-Depthena domain and handle availability and ownership have not been verified. Historical RDAP or X observations for prior naming candidates do not establish availability for these planned identifiers. Complete external setup before publication.
+Official website: not configured; ownership and routing have not been verified.
+Official Twitter/X profile: not configured; use VITE_X_URL for a confirmed account.
+Do not place guessed domains or handles into published material.
 
-Previous website: https://www.partivio.xyz/ (legacy reference pending migration)
-Previous X handle: @partivio_xyz (legacy reference pending migration)
+Visual direction: marine blue #101e2b / #0b1722, chartreuse #dcfa72, mist white #edf1ee, axis-based H mark.
+See the root BRAND_IDENTITY.md for historical identity and migration notes.

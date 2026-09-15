@@ -15,6 +15,6 @@ The project is a non-custodial liquidity coordination layer for Robinhood Chain 
 | Weavara | WVRA | weave + aura: composable liquidity paths | unclear | unclear | unclear | no public profile |
 | Nexadure | NXDR | nexus + durable: durable connected liquidity | unclear | unclear | unclear | no public profile |
 
-At the time of this historical screen, Partivio was selected for the depth and telemetry positioning. RDAP checks used rdap.org and X checks used normal-user-agent GET requests. 404 on X means no public profile was found; it does not guarantee handle registration. The recorded observations concerned `partivio.xyz` and `@partivio_xyz`; they were not checks for Depthena.
+At the time of this historical screen, Partivio was selected for the depth and telemetry positioning. RDAP checks used rdap.org and X checks used normal-user-agent GET requests. 404 on X means no public profile was found; it does not guarantee handle registration. The recorded observations concerned `partivio.xyz` and `@partivio_xyz`; they were not checks for Harbaxis.
 
-The active brand is now **Depthena** (slug `depthena`). The original candidate names and observations above are preserved as historical evidence. No availability or ownership conclusion for `depthena.xyz` or `@depthena_xyz` follows from this table.
+The active brand is now **Harbaxis** (slug `harbaxis`). The original candidate names and observations above are preserved as historical evidence. No availability or ownership conclusion for Harbaxis domains or social accounts follows from this table.
