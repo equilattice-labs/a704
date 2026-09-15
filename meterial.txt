@@ -1,5 +1,14 @@
-﻿Twitter handle: @deedluma_fun
-Domain: https://www.deedluma.fun/
+Project brand: Depthena
+Slug: depthena
+Existing presentation ticker: PTV
+Tagline: Depth-first liquidity
+Network: Robinhood Chain Testnet (chain ID 46630)
+Deployed testnet token: Robinhood Commons (HOOD)
 
-Availability check: RDAP returned 404 at brand selection time (14 Sep 2026 UTC); complete purchase/ownership verification at your registrar before launch.
+Planned Twitter/X handle: @depthena_xyz (unverified placeholder)
+Planned domain: https://www.depthena.xyz/ (unverified placeholder)
 
+Depthena domain and handle availability and ownership have not been verified. Historical RDAP or X observations for prior naming candidates do not establish availability for these planned identifiers. Complete external setup before publication.
+
+Previous website: https://www.partivio.xyz/ (legacy reference pending migration)
+Previous X handle: @partivio_xyz (legacy reference pending migration)
