@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="200 140 600 600">
 <title>Depthena</title>
-<rect x="200" y="140" width="600" height="600" rx="120" fill="#070e25"/>
 <circle cx="500" cy="440" r="242.95" fill="none" stroke="#4bd8ff" stroke-width="1" vector-effect="non-scaling-stroke"/>
 <polygon points="500,304.4 675.15,490.85 500,547.35 324.85,490.85" fill="#4bd8ff"/>
 <polygon points="500,304.4 675.15,490.85 500,449.04" fill="#ebf1ff"/>

@@ -1,8 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="200 140 600 600">
 <title>Depthena</title>
-<rect width="64" height="64" rx="14" fill="#060c1e"/>
-<circle cx="32" cy="32" r="21" fill="none" stroke="#3ddcff" stroke-width="3"/>
-<path d="M32 14 49 36 32 43 15 36z" fill="#3ddcff"/>
-<path d="M32 14 49 36 32 31z" fill="#e1f2ff"/>
-<path d="M32 31 32 51 27 37z" fill="#6affab"/>
+<rect x="200" y="140" width="600" height="600" rx="120" fill="#070e25"/>
+<circle cx="500" cy="440" r="242.95" fill="none" stroke="#4bd8ff" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<polygon points="500,304.4 675.15,490.85 500,547.35 324.85,490.85" fill="#4bd8ff"/>
+<polygon points="500,304.4 675.15,490.85 500,449.04" fill="#ebf1ff"/>
+<polygon points="500,449.04 500,626.45 469.49,490.85" fill="#63f2a5"/>
+<path d="M219.0446 400.3722 A310 182.5 0 0 1 780.9554 400.3722" fill="none" stroke="#9177ff" stroke-width="1" vector-effect="non-scaling-stroke"/>
 </svg>
