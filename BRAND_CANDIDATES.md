@@ -2,7 +2,7 @@
 
 Selection date: **2026-09-16**. The active identity is **Prelivo** (`prelivo`, `PRELIVO`) with the tagline **Rehearse your next position.** It combines preview and live and fits the project's local rehearsal behavior.
 
-The user requested a brand that does not reuse any previous project name. Earlier display brands are retained only in the compatibility map and historical records. Prelivo is distinct from Robinhood Chain Testnet and its deployed Robinhood Commons (HOOD) token. No new token symbol is introduced.
+The user requested a brand that does not reuse any previous project name. Earlier display brands are retained only in the compatibility map and historical records. Prelivo is distinct from Arc Chain Testnet and its deployed Arc Commons (HOOD) token. No new token symbol is introduced.
 
 | Selected identity | Value | Status |
 | --- | --- | --- |
