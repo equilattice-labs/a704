@@ -1,6 +1,6 @@
-Project brand: Prelivo
-Slug: prelivo
-Tagline: Rehearse your next position.
+Project brand: Rehevanta
+Slug: rehevanta
+Tagline: Understand the pool. Rehearse the position.
 Network: Robinhood Chain Testnet (chain ID 46630)
 Deployed testnet token: Robinhood Commons (HOOD)
 Contract/ABI identifier: RobinhoodCommons (unchanged)
@@ -10,9 +10,9 @@ Experience: a liquidity practice workspace for sample-pool discovery and local p
 Testnet functionality: EVM wallet connection and configured HOOD faucet.
 Local pool previews do not submit deposits. Test tokens have no cash value.
 
-Selected project website: https://prelivo.xyz (adopted locally; not registered or owned by this update).
-Selected Twitter/X: @prelivo / https://x.com/prelivo (adopted locally; ownership not established).
+Selected project website: https://rehevanta.xyz (adopted locally; not registered or owned by this update).
+Selected Twitter/X: @rehevanta / https://x.com/rehevanta (adopted locally; ownership not established).
 See root list.txt for dated read-only checks. Verify control before enabling VITE_X_URL or publishing.
 
-Visual direction: warm paper #f5f5ef, forest ink #183d36, acid green #d5f977; horizontal task navigation, pool comparison rows and staged position rehearsal.
+Visual direction: navy #101c32, ice #f2f5fa, cobalt #2459e0 and signal orange #ec6a3e; desktop navigation rail, practice dashboard, pool comparison cards and staged position rehearsal.
 See the root BRAND_IDENTITY.md for historical identity and migration notes.

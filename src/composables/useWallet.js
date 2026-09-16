@@ -68,7 +68,7 @@ export function useWallet() {
 
   function getWallet() {
     wallet = typeof window !== 'undefined' ? window.ethereum : null
-    if (!wallet) walletError.value = 'No EVM wallet detected. Install an EVM wallet or open Prelivo in your wallet browser.'
+    if (!wallet) walletError.value = 'No EVM wallet detected. Install an EVM wallet or open Rehevanta in your wallet browser.'
     return wallet
   }
 
