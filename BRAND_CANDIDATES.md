@@ -1,20 +1,31 @@
-# Historical Partivio naming shortlist and read-only availability screen (2026-09-14 UTC)
+# Prelivo naming decision
 
-The project is a non-custodial liquidity coordination layer for Robinhood Chain testnet. Candidates combine depth, routing, range, signal, and pool semantics. Availability labels are query-time observations, not registration or legal clearance.
+Selection date: **2026-09-16**. The active identity is **Prelivo** (`prelivo`, `PRELIVO`) with the tagline **Rehearse your next position.** It combines preview and live and fits the project's local rehearsal behavior.
 
-| Candidate | Ticker | Meaning | .xyz | .fun | .top | X profile |
-| --- | --- | --- | --- | --- | --- | --- |
-| Partivio | PTV | depth + arena: measurable market depth | available | available | available | no public profile |
-| Routyra | RTYR | route + lyra: guided intent routing | available | available | available | no public profile |
-| Rangexa | RNGX | range + nexa: concentrated LP positions | available | available | available | unclear |
-| Poolvexa | PVXA | pool + vertex: coordinated pool positioning | available | unclear | available | no public profile |
-| Velunex | VLNX | velocity + nexus: connected liquidity flow | available | unclear | unclear | unclear |
-| Densara | DNSR | dense + aura: deeper, healthier markets | unclear | available | available | unclear |
-| Signara | SGNA | signal + aura: readable risk telemetry | unclear | available | unclear | unclear |
-| Tidevora | TDVR | tide + vigor: resilient liquidity cycles | unclear | unclear | unclear | no public profile |
-| Weavara | WVRA | weave + aura: composable liquidity paths | unclear | unclear | unclear | no public profile |
-| Nexadure | NXDR | nexus + durable: durable connected liquidity | unclear | unclear | unclear | no public profile |
+The user requested a brand that does not reuse any previous project name. Earlier display brands are retained only in the compatibility map and historical records. Prelivo is distinct from Robinhood Chain Testnet and its deployed Robinhood Commons (HOOD) token. No new token symbol is introduced.
 
-At the time of this historical screen, Partivio was selected for the depth and telemetry positioning. RDAP checks used rdap.org and X checks used normal-user-agent GET requests. 404 on X means no public profile was found; it does not guarantee handle registration. The recorded observations concerned `partivio.xyz` and `@partivio_xyz`; they were not checks for Harbaxis.
+| Selected identity | Value | Status |
+| --- | --- | --- |
+| Display brand | Prelivo | Adopted in this local project |
+| X handle | @prelivo | Selected; no account created or ownership asserted |
+| Domain | prelivo.xyz | Selected; no registration or ownership asserted |
+| Tagline | Rehearse your next position. | Adopted |
 
-The active brand is now **Harbaxis** (slug `harbaxis`). The original candidate names and observations above are preserved as historical evidence. No availability or ownership conclusion for Harbaxis domains or social accounts follows from this table.
+## Read-only availability observations
+
+Checked **2026-09-16 01:36:31–01:36:34 Asia/Shanghai**.
+
+| Destination | Read-only source | Observation |
+| --- | --- | --- |
+| prelivo.xyz | https://rdap.centralnic.com/xyz/domain/prelivo.xyz | HTTP 404; RDAP errorCode 404, Object not found |
+| prelivo.fun | https://rdap.radix.host/rdap/domain/prelivo.fun | Available for registration response |
+| prelivo.top | https://rdap.zdnsgtld.com/top/domain/prelivo.top | Object not found |
+| @prelivo | https://x.com/prelivo | HTTP 404; User Profile Not Found - X |
+
+The selected domain is **prelivo.xyz**. Registry responses indicate no registered object at query time. The X response indicates no public profile found; it does not establish that the handle can be registered or released. Neither check proves ownership or trademark clearance. Availability can change immediately.
+
+At 01:37:16 Asia/Shanghai, exact name searches across 21,260 CoinGecko entries and 8,255 DeFiLlama entries found no Prelivo match. An exploratory symbol check also produced no exact match; it does not select or issue a project token. Quoted web search returned unrelated material and did not provide a reliable global name-clearance result.
+
+Raw responses and the structured summary are retained under `output/naming-20260916/`, including `availability.json`. No domain registration, social-account creation, publication or deployment was performed.
+
+See `BRAND_IDENTITY.md` for the replacement map and technical exceptions. Original shortlists are preserved under `archive/pre-prelivo/`; prior archives remain historical evidence.
