@@ -1,8 +1,6 @@
-# Rehevanta frontend
+# Fluxenote frontend
 
-**Understand the pool. Rehearse the position.** A Vue 3 / Vite liquidity practice workspace for Robinhood Chain Testnet (chain ID 46630).
-
-## Local use
+**Make room for understanding.** Vue 3 / Vite on Robinhood Chain Testnet, chain ID 46630.
 
 ```sh
 npm install
@@ -11,18 +9,12 @@ npm test
 npm run build
 ```
 
-The application offers pool discovery and local position previews. Pool metrics and positions are simulations; creating a preview does not deposit funds. A desktop navigation rail, a task dashboard, comparable pool cards and a staged preview flow organize the core tasks, with responsive layouts on smaller screens. Governance content describes future scope.
+The editorial interface includes an introduction, searchable model comparison, a local practice notebook, governance scope, preview forms and a testnet wallet panel. Pool figures are illustrative. Saving a preview does not move assets or submit a deposit.
 
-## Public configuration
+Copy `.env.example` to `.env` for a new environment. `VITE_CONTRACT_ADDRESS`, `VITE_CHAIN_ID`, `VITE_RPC_URL` and `VITE_EXPLORER_URL` keep their existing meaning. A zero address disables the faucet. Every `VITE_` value becomes public in the bundle.
 
-Copy `.env.example` to `.env`. The frontend reads the configured token address from `VITE_CONTRACT_ADDRESS` and uses `VITE_CHAIN_ID`, `VITE_RPC_URL`, and `VITE_EXPLORER_URL` for testnet interactions. A zero address is an unconfigured example, not a faucet deployment. Every `VITE_` value is public in a frontend bundle: keep private keys exclusively in the contract deployment environment.
+Selected destinations are fluxenote.xyz and @fluxenote; dated checks and ownership limits are in the root `list.txt`. Set `VITE_X_URL` only after confirming account control.
 
-Wallet connection and the HOOD faucet use the Robinhood Chain Testnet. The app checks or switches the chain before a faucet transaction. Test tokens have no cash value; the faucet does not create liquidity positions.
+Robinhood Commons (HOOD), the RobinhoodCommons ABI, network settings and wallet logic remain compatible. PTV is an illustrative symbol and no new project token is introduced. Existing session keys and pool IDs preserve saved previews. `#staking` still opens positions.
 
-Set optional `VITE_X_URL` only to the confirmed official X profile, then rebuild. An empty value leaves the social destination unconfigured. The selected identity is @rehevanta and rehevanta.xyz. Registry and public-profile checks are documented in the root list.txt; this update does not register, create or establish ownership of either destination.
-
-## Identity and verification
-
-Display brand: **Rehevanta**; slug: `rehevanta`. The testnet token remains Robinhood Commons (`HOOD`), and the contract/ABI remains `RobinhoodCommons`. The existing `PTV` symbol appears in illustrative pool models; it is not a newly selected token symbol. See the root `BRAND_IDENTITY.md` for the current identity and compatibility rules.
-
-`website/` and `website/a704/` share the same frontend source and current public artwork. Build each copy from its own folder. Current verification is recorded in the root `BRAND_UPDATE_SCAN.md` and `UX_VALIDATION.md`.
+`website/a704/` is the secondary copy. Run root `scripts/sync-frontend.ps1` before building it. See root `UX_VALIDATION.md` and `BRAND_UPDATE_SCAN.md` for verification.

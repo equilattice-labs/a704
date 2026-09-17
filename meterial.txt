@@ -1,18 +1,19 @@
-Project brand: Rehevanta
-Slug: rehevanta
-Tagline: Understand the pool. Rehearse the position.
-Network: Robinhood Chain Testnet (chain ID 46630)
-Deployed testnet token: Robinhood Commons (HOOD)
-Contract/ABI identifier: RobinhoodCommons (unchanged)
-Proposed presentation symbol: PTV (sample pool models; no new token selected)
+Brand: Fluxenote
+Slug: fluxenote
+Tagline: Make room for understanding.
+Headline: Room to try. Space to understand.
+Meaning: flux + note; observations from practicing with liquidity models.
+Selected domain: fluxenote.xyz
+Selected X: @fluxenote / https://x.com/fluxenote
+Status: planned destinations; checks in ../list.txt. Ownership not established.
 
-Experience: a liquidity practice workspace for sample-pool discovery and local position previews.
-Testnet functionality: EVM wallet connection and configured HOOD faucet.
-Local pool previews do not submit deposits. Test tokens have no cash value.
+Product: compare sample models, review an amount, save a local tab-session preview.
+Network: Robinhood Chain Testnet, 46630, RBH.
+Testnet token: Robinhood Commons (HOOD); contract/ABI RobinhoodCommons.
+PTV is an existing sample symbol. No new token or ticker.
+Wallet and configured HOOD faucet use the testnet. Pool previews do not submit deposits.
 
-Selected project website: https://rehevanta.xyz (adopted locally; not registered or owned by this update).
-Selected Twitter/X: @rehevanta / https://x.com/rehevanta (adopted locally; ownership not established).
-See root list.txt for dated read-only checks. Verify control before enabling VITE_X_URL or publishing.
-
-Visual direction: navy #101c32, ice #f2f5fa, cobalt #2459e0 and signal orange #ec6a3e; desktop navigation rail, practice dashboard, pool comparison cards and staged position rehearsal.
-See the root BRAND_IDENTITY.md for historical identity and migration notes.
+Visuals: paper #f4f1e8, ink #242822, terracotta #b84f31, forest #395a48.
+Typography: editorial Georgia headings and local sans-serif body.
+Layout: horizontal navigation, open hero, circular geometry, comparison rows, notebook.
+Public artwork: fluxenote-mark.svg, fluxenote-og.png, favicon.svg.
