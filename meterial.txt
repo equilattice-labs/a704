@@ -1,18 +1,9 @@
-<<<<<<< HEAD
 Project brand: Rehevanta
 Slug: rehevanta
 Tagline: Understand the pool. Rehearse the position.
 Network: Robinhood Chain Testnet (chain ID 46630)
 Deployed testnet token: Robinhood Commons (HOOD)
 Contract/ABI identifier: RobinhoodCommons (unchanged)
-=======
-Project brand: Prelivo
-Slug: prelivo
-Tagline: Rehearse your next position.
-Network: Arc Chain Testnet (chain ID 5042002)
-Deployed testnet token: Arc Commons (HOOD)
-Contract/ABI identifier: ArcCommons
->>>>>>> 5c846d837354e8efef5d3c6a5302062b46ef67fb
 Proposed presentation symbol: PTV (sample pool models; no new token selected)
 
 Experience: a liquidity practice workspace for sample-pool discovery and local position previews.

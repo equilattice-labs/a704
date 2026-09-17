@@ -10,13 +10,13 @@ const source = (await readFile(new URL('../src/composables/useWallet.js', import
 const makeComposable = new Function('deps', `const { ref, computed, onMounted, onBeforeUnmount, ethers, CHAIN_ID, CHAIN_PARAMS, CONTRACT_ADDRESS, tokenAbi } = deps; ${source}; return useWallet()`)
 const address = '0x1111111111111111111111111111111111111111'
 const secondAddress = '0x2222222222222222222222222222222222222222'
-const chainParams = { chainId: '0x4cef52', chainName: 'Arc Chain Testnet', nativeCurrency: { name: 'USDC', symbol: 'USDC', decimals: 18 } }
+const chainParams = { chainId: '0xb626', chainName: 'Robinhood Chain Testnet', nativeCurrency: { symbol: 'RBH' } }
 const settle = () => new Promise(resolve => setTimeout(resolve, 0))
 
 function setup(options = {}) {
   const listeners = new Map()
   const calls = []
-  const state = { chain: '0x4cef52', accounts: [address], native: 10n ** 18n, hood: 100n * 10n ** 18n,
+  const state = { chain: '0xb626', accounts: [address], native: 10n ** 18n, hood: 100n * 10n ** 18n,
     lastClaim: 0n, cooldown: 86400n, now: 200000, paused: false, txCount: 0, ...options }
   const ethereum = {
     async request(request) {
@@ -72,7 +72,7 @@ function setup(options = {}) {
   let mount, unmount
   globalThis.window = state.noWallet ? {} : { ethereum }
   const api = makeComposable({ ref, computed, onMounted: fn => { mount = fn }, onBeforeUnmount: fn => { unmount = fn },
-    ethers: { ...realEthers, BrowserProvider, Contract }, CHAIN_ID: 5042002, CHAIN_PARAMS: chainParams,
+    ethers: { ...realEthers, BrowserProvider, Contract }, CHAIN_ID: 46630, CHAIN_PARAMS: chainParams,
     CONTRACT_ADDRESS: state.contractAddress || address, tokenAbi: [] })
   mount()
   return { api, state, calls, listeners, unmount, emit: (event, data) => listeners.get(event)?.(data) }

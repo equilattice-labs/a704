@@ -50,36 +50,27 @@ const sort = ref("featured");
 const pools = [
   {
     id: "harbaxis-robin",
-<<<<<<< HEAD
     name: "Rehevanta / Robin",
     pair: "PTV / RBH",
-=======
-    name: "Prelivo / Arc Commons",
-    pair: "PTV / HOOD",
->>>>>>> 5c846d837354e8efef5d3c6a5302062b46ef67fb
     token: "PTV",
     profile: "Core",
     apy: 42.8,
     tvl: 18.4,
     color: "lime",
-<<<<<<< HEAD
     symbols: ["r", "R"],
-=======
-    symbols: ["p", "H"],
->>>>>>> 5c846d837354e8efef5d3c6a5302062b46ef67fb
     model: "Balanced liquidity",
     width: 92,
   },
   {
     id: "robin-usdc",
-    name: "Arc Commons / USDC",
-    pair: "HOOD / USDC",
-    token: "HOOD",
+    name: "Robin / USDC",
+    pair: "RBH / USDC",
+    token: "RBH",
     profile: "Core",
     apy: 28.6,
     tvl: 11.2,
     color: "blue",
-    symbols: ["H", "$"],
+    symbols: ["R", "$"],
     model: "Stable pair liquidity",
     width: 66,
   },
@@ -608,7 +599,7 @@ onBeforeUnmount(() => {
               <span class="eyebrow">TESTNET / OPTIONAL</span>
               <h2>Ready for the<br />next environment?</h2>
               <p>
-                Use your EVM wallet to explore HOOD test tokens on Arc
+                Use your EVM wallet to explore HOOD test tokens on Robinhood
                 Chain Testnet. Your practice positions stay separate.
               </p>
               <span class="tag">TEST TOKENS HAVE NO CASH VALUE</span>
@@ -845,8 +836,8 @@ onBeforeUnmount(() => {
           /></a>
         </div>
         <p>
-          An independent project on Arc Chain Testnet. No affiliation with
-          Arc Chain. Test tokens have no cash value.
+          An independent project on Robinhood Chain Testnet. No affiliation with
+          Robinhood. Test tokens have no cash value.
         </p>
       </footer>
       </div>
@@ -1029,7 +1020,7 @@ onBeforeUnmount(() => {
                   connected
                     ? correctNetwork
                       ? CHAIN_PARAMS.chainName
-                      : "Switch to Arc Chain Testnet"
+                      : "Switch to Robinhood Chain Testnet"
                     : "Connect when you’re ready."
                 }}</span>
               </div>
@@ -1184,7 +1175,7 @@ onBeforeUnmount(() => {
               <details>
                 <summary>How do the tokens differ?</summary>
                 <p>
-                  HOOD is the Arc Commons testnet utility token used by
+                  HOOD is the Robinhood Commons testnet utility token used by
                   the faucet. PTV is a legacy demo symbol shown only in sample
                   pool models. It is not a Rehevanta token. {{ nativeSymbol }} is
                   the configured network currency. Test tokens have no cash
