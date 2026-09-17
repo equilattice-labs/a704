@@ -1,9 +1,9 @@
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { ethers } from 'ethers'
 import { CHAIN_ID, CHAIN_PARAMS, CONTRACT_ADDRESS } from '../config'
-import tokenAbi from '../abi/RobinhoodCommons.json'
+import tokenAbi from '../abi/ArcCommons.json'
 
-// These read methods exist on RobinhoodCommons; keep the deployed ABI intact.
+// These read methods exist on ArcCommons; keep the deployed ABI intact.
 const faucetAbi = [
   ...tokenAbi,
   'function faucetAmount() view returns (uint256)',
