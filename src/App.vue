@@ -44,14 +44,14 @@ const sort = ref("featured");
 const pools = [
   {
     id: "harbaxis-robin",
-    name: "Fluxenote / Robin",
+    name: "Calivect / Robin",
     pair: "PTV / RBH",
     token: "PTV",
     profile: "Core",
     apy: 42.8,
     tvl: 18.4,
     color: "lime",
-    symbols: ["f", "R"],
+    symbols: ["c", "R"],
     model: "Balanced liquidity",
     width: 92,
   },
@@ -70,14 +70,14 @@ const pools = [
   },
   {
     id: "harbaxis-eth",
-    name: "Fluxenote / ETH",
+    name: "Calivect / ETH",
     pair: "PTV / ETH",
     token: "PTV",
     profile: "Experimental",
     apy: 67.1,
     tvl: 6.8,
     color: "purple",
-    symbols: ["f", "Ξ"],
+    symbols: ["c", "Ξ"],
     model: "Variable liquidity",
     width: 42,
   },
@@ -93,9 +93,7 @@ const filteredPools = computed(() => {
   if (sort.value === "tvl") result.sort((a, b) => b.tvl - a.tvl);
   return result;
 });
-const showDiscovery = computed(
-  () => activePage.value === "Pools",
-);
+const showDiscovery = computed(() => activePage.value === "Pools");
 const walletBusy = computed(
   () => isConnecting.value || isSwitching.value || isClaiming.value,
 );
@@ -126,7 +124,7 @@ const reviewHeading = ref(null);
 const previewInput = ref(null);
 let previousFocus = null;
 let previousOverflow = "";
-// Stable storage and pool IDs preserve previews saved before the Fluxenote rebrand.
+// Stable storage and pool IDs preserve previews saved before the Calivect rebrand.
 const storageKey = "harbaxis.preview-positions.v1";
 const positions = ref([]);
 const completedSteps = computed(
@@ -157,7 +155,7 @@ function readRoute() {
       ? "Positions"
       : pages.find((page) => page.toLowerCase() === hash) || "Overview";
   if (activePage.value === "Pools") exploredPools.value = true;
-  document.title = `${activePage.value} · Fluxenote`;
+  document.title = `${activePage.value} · Calivect`;
 }
 function goTo(page) {
   previousFocus = null;
@@ -381,578 +379,1172 @@ onBeforeUnmount(() => {
   clearTimeout(undoTimer);
   if (dialog.value?.open) document.body.style.overflow = previousOverflow;
 });
-</script>
 
+const navIcons = {
+  Overview: "grid",
+  Pools: "layers",
+  Positions: "portfolio",
+  Governance: "community",
+};
+const allocation = ref(50);
+const secondaryToken = computed(() => spotlightPool.value.pair.split(" / ")[1]);
+const splitFront = computed(
+  () =>
+    `${70 + (224 * allocation.value) / 100},${162 + (80 * allocation.value) / 100}`,
+);
+const splitBack = computed(
+  () =>
+    `${324 + (224 * allocation.value) / 100},${70 + (80 * allocation.value) / 100}`,
+);
+const splitLower = computed(
+  () =>
+    `${70 + (224 * allocation.value) / 100},${202 + (80 * allocation.value) / 100}`,
+);
+const allocationLabel = computed(
+  () =>
+    `${allocation.value}% ${spotlightPool.value.token}, ${100 - allocation.value}% ${secondaryToken.value}`,
+);
+function selectModel(index) {
+  spotlightIndex.value = index;
+  allocation.value = [50, 70, 35][index];
+  exploredPools.value = true;
+}
+function displayDate(value) {
+  return new Date(value).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  });
+}
+</script>
 <template>
   <div class="app-shell">
-    <a class="skip-link" href="#main-content" @click.prevent="skipToContent">Skip to content</a>
-    <header class="site-header page-width">
-      <a class="wordmark" href="#overview" aria-label="Fluxenote home" @click.prevent="goTo('Overview')">
-        <img src="/fluxenote-mark.svg" width="38" height="38" alt="" />
-        <span>fluxenote</span>
-      </a>
+    <a class="skip-link" href="#main-content" @click.prevent="skipToContent"
+      >Skip to content</a
+    >
+    <aside class="sidebar">
+      <a
+        class="wordmark"
+        href="#overview"
+        aria-label="Calivect home"
+        @click.prevent="goTo('Overview')"
+        ><img src="/calivect-mark.svg" alt="" width="32" height="32" /><span
+          >calivect</span
+        ><span class="beta-mark">BETA</span></a
+      >
+      <div class="workspace-label">LIQUIDITY WORKSPACE</div>
       <nav class="main-nav" aria-label="Main navigation">
-        <a v-for="page in pages" :key="page" :href="`#${page.toLowerCase()}`" :aria-current="activePage === page ? 'page' : undefined" :class="{ active: activePage === page }" @click.prevent="selectRoute(page)">{{ page }}<span v-if="page === 'Positions' && positions.length" class="nav-count">{{ positions.length }}</span></a>
+        <a
+          v-for="page in pages"
+          :key="page"
+          :href="`#${page.toLowerCase()}`"
+          :aria-label="page"
+          :aria-current="activePage === page ? 'page' : undefined"
+          :class="{ active: activePage === page }"
+          @click.prevent="selectRoute(page)"
+          ><FlowIcon :name="navIcons[page]" /><span>{{ page }}</span
+          ><span
+            v-if="page === 'Positions' && positions.length"
+            class="nav-count"
+            >{{ positions.length }}</span
+          ><i v-if="page === activePage" class="nav-indicator"></i
+        ></a>
       </nav>
-      <button class="button button-outline connect-button" @click="openModal('wallet')"><span class="connection-dot" :class="{ connected }"></span>{{ connected ? shortAccount : 'Connect wallet' }}<FlowIcon name="arrow" /></button>
-    </header>
-
-    <main id="main-content" tabindex="-1">
-      <section v-if="activePage === 'Overview'" class="overview-page page-width" aria-labelledby="hero-title">
-        <div class="edition-line"><span>A LITTLE CURIOSITY GOES A LONG WAY</span><span><i class="small-dot"></i> AN INDEPENDENT TESTNET STUDIO</span></div>
-        <div class="hero-layout">
-          <div class="hero-copy">
-            <h1 id="hero-title">Room to try. <br />Space to <br /><em>understand.</em></h1>
-            <p>Get a feel for liquidity. Explore a pool, try an amount, and turn a little curiosity into a clearer picture.</p>
-            <div class="hero-actions"><button class="button button-primary" @click="openPool(spotlightPool)">Try a pool model <FlowIcon name="arrow" /></button><button class="text-button" @click="openModal('docs')">Read the field guide <FlowIcon name="book" /></button></div>
-            <span class="hero-footnote"><FlowIcon name="shield" /> A local simulation. Begin without a wallet.</span>
+      <div class="sidebar-bottom">
+        <div class="environment-card">
+          <span class="status-dot"></span>
+          <div>
+            <strong>Testnet environment</strong
+            ><span>Explore without real capital</span>
           </div>
-          <section class="pool-observatory" aria-label="Interactive model preview">
-            <div class="observatory-top"><span>IN THE POOL</span><span>FIG. 0{{ spotlightIndex + 1 }} / 03</span></div>
-            <div class="pool-art" :class="`art-${spotlightIndex}`" aria-hidden="true">
-              <svg class="contour-art" viewBox="0 0 560 490" fill="none">
-                <defs><pattern id="paper-lines" width="7" height="7" patternUnits="userSpaceOnUse"><path d="M0 7L7 0" stroke="currentColor" stroke-width=".6" opacity=".12"/></pattern></defs>
-                <path d="M50 372H519M89 426H485" stroke="currentColor" opacity=".2"/>
-                <circle cx="280" cy="235" r="188" fill="url(#paper-lines)" stroke="currentColor" stroke-width="1" opacity=".38"/>
-                <path class="contour-fill" d="M100 253C62 151 144 59 251 62C351 65 334 137 420 164C531 199 489 340 410 370C330 400 309 447 214 405C133 369 132 338 100 253Z"/>
-                <g class="contour-lines" stroke="currentColor" stroke-width="1.25">
-                  <path d="M100 253C62 151 144 59 251 62C351 65 334 137 420 164C531 199 489 340 410 370C330 400 309 447 214 405C133 369 132 338 100 253Z"/>
-                  <path d="M116 251C81 160 151 77 248 80C339 83 326 151 405 179C504 214 465 328 399 352C321 381 306 425 223 387C149 354 146 328 116 251Z"/>
-                  <path d="M133 248C102 170 160 96 246 98C326 101 319 167 389 195C477 229 442 316 387 336C312 363 302 403 231 369C166 339 162 318 133 248Z"/>
-                  <path d="M150 246C122 180 169 115 243 117C314 119 311 183 374 210C449 243 419 304 375 319C302 345 299 381 240 351C183 323 177 307 150 246Z"/>
-                  <path d="M167 244C143 190 178 134 241 136C301 138 304 199 358 226C421 256 396 292 363 303C293 327 296 359 248 333C201 308 193 297 167 244Z"/>
-                  <path d="M185 241C164 199 187 153 238 154C289 156 296 215 342 241C392 269 373 280 351 287C284 309 292 337 257 315C217 292 208 287 185 241Z"/>
-                  <path d="M203 238C184 209 197 173 237 174C276 175 289 230 326 256C362 281 350 267 340 271C275 292 289 314 265 296C236 277 226 276 203 238Z"/>
-                </g>
-                <ellipse cx="266" cy="237" rx="43" ry="63" transform="rotate(-29 266 237)" class="pool-core"/>
-                <circle cx="421" cy="126" r="38" class="sun-disc"/>
-                <path d="M421 78V64M421 188V174M469 126H483M359 126H373" stroke="currentColor" opacity=".45"/>
-                <circle cx="153" cy="349" r="6" fill="currentColor"/>
-                <path d="M153 349L91 399H45" stroke="currentColor" stroke-width="1"/>
-                <path d="M352 257L450 290H518" stroke="currentColor" stroke-width="1"/>
-                <text x="46" y="416" font-size="10" fill="currentColor" letter-spacing="2">{{ spotlightPool.symbols[0] }} / ASSET 01</text>
-                <text x="457" y="309" font-size="10" fill="currentColor" letter-spacing="1">ASSET 02</text>
-              </svg>
-              <span class="art-caption">A STUDY IN BALANCE</span>
-            </div>
-            <div class="model-tabs" role="group" aria-label="Featured pool model"><button v-for="(pool, index) in pools" :key="pool.id" :aria-label="`Show ${pool.name} model`" :aria-pressed="spotlightIndex === index" @click="spotlightIndex = index"><span>0{{ index + 1 }}</span>{{ pool.model.replace(' liquidity', '') }}</button></div>
-            <div class="observatory-details"><div class="model-description"><span class="eyebrow">{{ spotlightPool.profile }} MODEL</span><h2>{{ spotlightPool.name }}</h2><span>{{ spotlightPool.pair }}</span></div><div class="model-metric"><span>Sample APY</span><strong>{{ spotlightPool.apy }}<small>%</small></strong></div><div class="model-metric"><span>Sample TVL</span><strong>${{ spotlightPool.tvl }}<small>M</small></strong></div></div>
-            <p class="model-disclaimer">Illustrative figures. No deposits, transactions, or real returns.</p>
-          </section>
         </div>
-        <div class="studio-facts" role="group" aria-label="Studio summary"><span><b>03</b> Models to explore</span><button @click="goTo('Positions')"><b>{{ String(positions.length).padStart(2, '0') }}</b> Previews in your notebook <FlowIcon name="arrow" /></button><span><i class="small-dot"></i> Local simulation / no wallet required</span></div>
-        <section class="learning-path" aria-labelledby="path-title">
-          <div class="path-heading"><div><span class="eyebrow">SMALL STEPS. MORE UNDERSTANDING.</span><h2 id="path-title">Find your own flow.</h2></div><span>{{ completedSteps }} / 3 steps explored</span></div>
-          <div class="journey-progress" role="progressbar" :aria-valuenow="completedSteps" :aria-valuemin="0" :aria-valuemax="3" aria-label="Practice path progress"><span :style="{ width: `${completedSteps / 3 * 100}%` }"></span></div>
-          <div class="journey-steps">
-            <button class="journey-step" @click="goTo('Pools')"><span class="step-number" :class="{ done: exploredPools || positions.length }">{{ exploredPools || positions.length ? '✓' : '01' }}</span><div><h3>Look a little closer.</h3><p>Compare three example pairs, two profiles, and their illustrative APY and TVL.</p><strong>Explore the models <FlowIcon name="arrow" /></strong></div></button>
-            <button class="journey-step" @click="positions.length ? goTo('Positions') : openPool(pools[0])"><span class="step-number" :class="{ done: positions.length }">{{ positions.length ? '✓' : '02' }}</span><div><h3>Give an idea some space.</h3><p>Try an amount and save a practice position. Review, remove, or restore it in this tab.</p><strong>{{ positions.length ? 'Open your notebook' : 'Save your first preview' }} <FlowIcon name="arrow" /></strong></div></button>
-            <button class="journey-step" @click="openModal('wallet')"><span class="step-number" :class="{ done: connected }">{{ connected ? '✓' : '03' }}</span><div><h3>Go a step further.</h3><p>When you’re ready, connect an EVM wallet to explore balances and the HOOD testnet faucet.</p><strong>{{ connected ? 'Manage your wallet' : 'Explore the testnet' }} <FlowIcon name="arrow" /></strong></div></button>
+        <button class="sidebar-link" @click="openModal('docs')">
+          <FlowIcon name="book" /> Quick-start guide
+          <FlowIcon name="external" />
+        </button>
+        <a
+          class="sidebar-link"
+          :href="EXPLORER_URL"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><FlowIcon name="globe" /> Chain explorer <FlowIcon name="external"
+        /></a>
+        <div class="sidebar-edition">
+          <span>CALIVECT LAB</span><span>v0.1</span>
+        </div>
+      </div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div class="breadcrumb">
+          <span>Workspace</span><FlowIcon name="chevron" /><strong>{{
+            activePage
+          }}</strong>
+        </div>
+        <div class="topbar-actions">
+          <span class="network-badge"
+            ><span class="status-dot"></span> Robinhood Testnet</span
+          ><button class="button button-wallet" @click="openModal('wallet')">
+            <FlowIcon name="wallet" />{{
+              connected ? shortAccount : "Connect wallet"
+            }}<span v-if="connected" class="status-dot"></span>
+          </button>
+        </div>
+      </header>
+      <main id="main-content" tabindex="-1">
+        <section
+          v-if="activePage === 'Overview'"
+          class="overview-page"
+          aria-labelledby="hero-title"
+        >
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">
+                <span class="tiny-rule"></span> YOUR LIQUIDITY SANDBOX
+              </p>
+              <h1 id="hero-title">Ideas in. Insight out.</h1>
+              <p>
+                Explore the mechanics of liquidity before making your next move.
+              </p>
+            </div>
+            <button
+              class="button button-secondary heading-button"
+              @click="openModal('docs')"
+            >
+              <FlowIcon name="book" /> How it works
+            </button>
+          </div>
+          <div class="overview-stats">
+            <div>
+              <span class="stat-icon"><FlowIcon name="layers" /></span>
+              <div>
+                <span>Pool models</span
+                ><strong>03 <small>ready to explore</small></strong>
+              </div>
+            </div>
+            <div>
+              <span class="stat-icon purple"
+                ><FlowIcon name="portfolio"
+              /></span>
+              <div>
+                <span>Saved previews</span
+                ><strong
+                  >{{ String(positions.length).padStart(2, "0") }}
+                  <small>in this session</small></strong
+                >
+              </div>
+            </div>
+            <div>
+              <span class="stat-icon lime"><FlowIcon name="shield" /></span>
+              <div>
+                <span>Capital required</span
+                ><strong>$0 <small>simulation first</small></strong>
+              </div>
+            </div>
+          </div>
+          <div class="launchpad">
+            <section
+              class="allocation-panel"
+              aria-label="Interactive allocation illustration"
+            >
+              <div class="panel-heading">
+                <div>
+                  <span class="eyebrow">01 / EXPLORE THE MIX</span>
+                  <h2>Two assets. One model.</h2>
+                </div>
+                <span class="tag tag-blue"
+                  ><span class="status-dot"></span> SIMULATION</span
+                >
+              </div>
+              <div class="allocation-visual">
+                <div class="visual-coordinate coordinate-top">
+                  ASSET COMPOSITION / 0{{ spotlightIndex + 1 }}
+                </div>
+                <svg
+                  class="allocation-art"
+                  viewBox="0 0 620 330"
+                  role="img"
+                  :aria-label="`Illustrative allocation: ${allocationLabel}`"
+                >
+                  <defs>
+                    <linearGradient id="mix-a" x1="0" y1="1" x2="1" y2="0">
+                      <stop stop-color="#657ae0" />
+                      <stop offset="1" stop-color="#a8b8ff" />
+                    </linearGradient>
+                    <linearGradient id="mix-b" x1="0" y1="0" x2="1" y2="1">
+                      <stop stop-color="#c8f698" />
+                      <stop offset="1" stop-color="#80ba59" />
+                    </linearGradient>
+                    <linearGradient id="mix-shadow" x1="0" y1="0" x2="0" y2="1">
+                      <stop stop-color="#8eaaff" stop-opacity=".12" />
+                      <stop offset="1" stop-color="#8eaaff" stop-opacity="0" />
+                    </linearGradient>
+                  </defs>
+                  <g class="floor-grid" stroke="#506689" stroke-width=".65">
+                    <path
+                      v-for="i in 11"
+                      :key="`x${i}`"
+                      :d="`M${-130 + i * 48} 192l370 134M${i * 54} 326l362 -132`"
+                    />
+                  </g>
+                  <polygon
+                    points="70,220 294,300 548,208 324,128"
+                    fill="url(#mix-shadow)"
+                  />
+                  <polygon
+                    points="294,242 548,150 548,190 294,282"
+                    fill="#467035"
+                    stroke="#a8dc81"
+                    stroke-opacity=".2"
+                  />
+                  <polygon
+                    :points="`70,162 ${splitFront} ${splitLower} 70,202`"
+                    fill="#485793"
+                    stroke="#8499e9"
+                    stroke-opacity=".4"
+                  />
+                  <polygon
+                    :points="`${splitFront} 294,242 294,282 ${splitLower}`"
+                    fill="#638742"
+                    stroke="#b1df80"
+                    stroke-opacity=".4"
+                  />
+                  <polygon
+                    :points="`70,162 ${splitFront} ${splitBack} 324,70`"
+                    fill="url(#mix-a)"
+                    stroke="#bdcaff"
+                    stroke-width="1"
+                  />
+                  <polygon
+                    :points="`${splitFront} 294,242 548,150 ${splitBack}`"
+                    fill="url(#mix-b)"
+                    stroke="#d4ffb7"
+                    stroke-width="1"
+                  />
+                  <g stroke="#10213a" stroke-opacity=".22" stroke-width="1">
+                    <path
+                      v-for="i in 9"
+                      :key="`tile${i}`"
+                      :d="`M${70 + (224 * i) / 10} ${162 + (80 * i) / 10}l254 -92 M${70 + (254 * i) / 10} ${162 - (92 * i) / 10}l224 80`"
+                    />
+                  </g>
+                  <path
+                    :d="`M${splitLower}L${splitFront}L${splitBack}`"
+                    stroke="#eef7ff"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                  <path
+                    d="M70 151V125H120M548 138V113H510M294 291v14"
+                    fill="none"
+                    stroke="#9fb4d6"
+                    stroke-width="1"
+                  />
+                  <text
+                    x="54"
+                    y="114"
+                    fill="#c8d4ff"
+                    font-size="13"
+                    font-family="monospace"
+                  >
+                    {{ spotlightPool.token }}
+                  </text>
+                  <text
+                    x="514"
+                    y="102"
+                    fill="#d5f6bb"
+                    font-size="13"
+                    font-family="monospace"
+                  >
+                    {{ secondaryToken }}
+                  </text>
+                </svg>
+                <div class="visual-coordinate coordinate-bottom">
+                  <span>ILLUSTRATIVE COMPOSITION</span
+                  ><span>NO LIVE ASSETS</span>
+                </div>
+              </div>
+              <div class="allocation-controls">
+                <div class="allocation-labels">
+                  <label for="allocation-range"
+                    ><i class="legend-dot violet"></i>{{ spotlightPool.token }}
+                    <strong>{{ allocation }}%</strong></label
+                  ><span
+                    ><i class="legend-dot green"></i>{{ secondaryToken }}
+                    <strong>{{ 100 - allocation }}%</strong></span
+                  >
+                </div>
+                <input
+                  id="allocation-range"
+                  v-model.number="allocation"
+                  type="range"
+                  min="10"
+                  max="90"
+                  step="5"
+                  :aria-valuetext="allocationLabel"
+                  aria-label="Illustrative first asset allocation"
+                  :style="{ '--allocation': `${allocation}%` }"
+                />
+                <div class="range-caption">
+                  <span>Drag to explore the asset mix</span
+                  ><button
+                    @click="allocation = 50"
+                    aria-label="Reset allocation to 50 percent"
+                  >
+                    Reset <FlowIcon name="refresh" />
+                  </button>
+                </div>
+              </div>
+            </section>
+            <section class="model-launcher" aria-label="Select a pool model">
+              <div class="panel-heading">
+                <div>
+                  <span class="eyebrow">02 / SELECT A MODEL</span>
+                  <h2>Find your starting point.</h2>
+                </div>
+              </div>
+              <div class="model-options" role="group" aria-label="Pool model">
+                <button
+                  v-for="(pool, index) in pools"
+                  :key="pool.id"
+                  :aria-pressed="spotlightIndex === index"
+                  :class="[
+                    'model-option',
+                    { selected: spotlightIndex === index },
+                  ]"
+                  @click="selectModel(index)"
+                >
+                  <span class="model-number">0{{ index + 1 }}</span
+                  ><span
+                    ><strong>{{ pool.name }}</strong
+                    ><small>{{ pool.model }}</small></span
+                  ><span class="selection-dot"
+                    ><FlowIcon v-if="spotlightIndex === index" name="check"
+                  /></span>
+                </button>
+              </div>
+              <div class="model-sample">
+                <div>
+                  <span>Sample APY <FlowIcon name="activity" /></span
+                  ><strong>{{ spotlightPool.apy }}<small>%</small></strong>
+                </div>
+                <div>
+                  <span>Sample TVL</span
+                  ><strong
+                    ><small>$</small>{{ spotlightPool.tvl
+                    }}<small>M</small></strong
+                  >
+                </div>
+              </div>
+              <p class="model-note">
+                Example figures for learning. Not live market data or expected
+                returns.
+              </p>
+              <button
+                class="button button-primary full-width launch-button"
+                @click="openPool(spotlightPool)"
+              >
+                Create preview <FlowIcon name="arrow" />
+              </button>
+              <p class="launch-caption">
+                <FlowIcon name="shield" /> No wallet or deposit required
+              </p>
+            </section>
+          </div>
+          <p class="visual-footnote">
+            The mix control changes the illustration. A saved preview records
+            your pool and practice amount.
+          </p>
+          <div class="section-label">
+            <h2>Your next steps</h2>
+            <span>{{ completedSteps }} / 3 explored</span>
+          </div>
+          <div class="next-steps">
+            <button class="next-step" @click="goTo('Pools')">
+              <span class="step-symbol"><FlowIcon name="layers" /></span
+              ><span
+                ><strong>Compare the models</strong
+                ><small>Three pools. Different perspectives.</small></span
+              ><FlowIcon
+                :name="exploredPools || positions.length ? 'check' : 'arrow'"
+              /></button
+            ><button class="next-step" @click="goTo('Positions')">
+              <span class="step-symbol"><FlowIcon name="portfolio" /></span
+              ><span
+                ><strong>Build your collection</strong
+                ><small>Keep and revisit practice positions.</small></span
+              ><FlowIcon :name="positions.length ? 'check' : 'arrow'" /></button
+            ><button class="next-step" @click="openModal('wallet')">
+              <span class="step-symbol"><FlowIcon name="wallet" /></span
+              ><span
+                ><strong>Try the testnet</strong
+                ><small>Connect a wallet when you're ready.</small></span
+              ><FlowIcon :name="connected ? 'check' : 'arrow'" />
+            </button>
           </div>
         </section>
-      </section>
 
-      <section v-if="showDiscovery" class="pools-page page-width" aria-labelledby="discovery-title">
-        <div class="section-heading"><div><span class="eyebrow">THE MODEL COLLECTION / 03</span><h1 id="discovery-title">A few ways <br /><em>to find your balance.</em></h1><p>Start with a comparison. Three liquidity models, two different profiles, and room to explore. All figures are illustrative.</p></div><span class="data-badge"><i class="small-dot"></i> EXAMPLE DATA</span></div>
-        <div class="pool-toolbar"><div class="filter-tabs" role="group" aria-label="Filter pools"><button v-for="item in ['All pools', 'Core', 'Experimental']" :key="item" :class="{ selected: filter === item }" :aria-pressed="filter === item" :aria-label="item" @click="filter = item">{{ item }}<span v-if="item === 'All pools'">03</span></button></div><label class="search-box"><FlowIcon name="search" /><input v-model="search" type="search" placeholder="Find a pool or token" aria-label="Search pools" /></label><label class="sort-box"><span class="sr-only">Sort pools</span><select v-model="sort" aria-label="Sort pools"><option value="featured">Featured first</option><option value="apy">Sample APY</option><option value="tvl">Sample TVL</option></select></label></div>
-        <div class="pool-results" role="status" aria-live="polite"><span>{{ filteredPools.length }} {{ filteredPools.length === 1 ? 'model' : 'models' }} to explore</span><span>LOCAL SIMULATION / NO DEPOSIT</span></div>
-        <div class="pool-table"><div class="pool-table-head" aria-hidden="true"><span>POOL &amp; LIQUIDITY MODEL</span><span>PROFILE</span><span>SAMPLE APY</span><span>SAMPLE TVL</span><span>MAKE IT YOURS</span></div><article v-for="(pool, index) in filteredPools" :key="pool.id" class="pool-row" :class="pool.color"><div class="pool-identity"><span class="pool-index">0{{ pools.indexOf(pool) + 1 }}</span><div><h2>{{ pool.name }}</h2><p>{{ pool.pair }} <span>· {{ pool.model }}</span></p></div></div><span class="tag pool-profile">{{ pool.profile }}</span><div class="pool-number"><span class="mobile-label">Sample APY</span><strong>{{ pool.apy }}<small>%</small></strong><span class="metric-caption">Illustrative</span></div><div class="pool-number"><span class="mobile-label">Sample TVL</span><strong>${{ pool.tvl }}<small>M</small></strong><span class="metric-caption">Illustrative</span></div><button class="pool-preview-button" :aria-label="`Preview ${pool.name} pool`" @click="openPool(pool)">Try model <FlowIcon name="arrow" /></button></article></div>
-        <div v-if="!filteredPools.length" class="empty-state" role="status"><FlowIcon name="search" /><h2>No models in view.</h2><p>Try another name or token, or clear your filters to start again.</p><button class="button button-outline" @click="resetFilters">Reset filters <FlowIcon name="refresh" /></button></div>
-        <div class="pool-disclosure"><FlowIcon name="shield" /><p>APY and TVL are sample figures, not live returns. PTV is a demo symbol, separate from HOOD test tokens. Previews move no assets.</p><button class="text-button" @click="openModal('docs')">Read the guide <FlowIcon name="arrow" /></button></div>
-                  <section
-            v-if="activePage === 'Pools'"
-            class="testnet-section"
-            aria-label="Testnet connection"
-          >
-            <div class="testnet-copy">
-              <span class="eyebrow">TESTNET / OPTIONAL</span>
-              <h2>Ready for the <br />next environment?</h2>
+        <section
+          v-if="showDiscovery"
+          class="pools-page"
+          aria-labelledby="discovery-title"
+        >
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">
+                <span class="tiny-rule"></span> MODEL LIBRARY
+              </p>
+              <h1 id="discovery-title">Find your liquidity model.</h1>
               <p>
-                Use your EVM wallet to explore HOOD test tokens on Robinhood
-                Chain Testnet. Your practice positions stay separate.
-              </p>
-              <span class="tag">TEST TOKENS HAVE NO CASH VALUE</span>
-            </div>
-            <aside class="testnet-panel" aria-label="Your testnet wallet">
-              <div class="panel-top">
-                <span class="eyebrow">YOUR WALLET</span
-                ><FlowIcon name="wallet" />
-              </div>
-              <template v-if="!connected"
-                ><h3>Ready to connect?</h3>
-                <p>
-                  Connect to read balances and access the configured HOOD
-                  faucet.
-                </p>
-                <button
-                  class="button button-primary full-width"
-                  :disabled="walletBusy"
-                  @click="connectWallet"
-                >
-                  {{ isConnecting ? "Connecting…" : "Connect wallet" }}
-                  <FlowIcon name="arrow" /></button></template
-              ><template v-else
-                ><div class="connection-state">
-                  <span class="small-dot"></span
-                  >{{
-                    correctNetwork
-                      ? "Connected to testnet"
-                      : "Network switch needed"
-                  }}
-                </div>
-                <h3>{{ shortAccount }}</h3>
-                <div class="balance-line">
-                  <span>Network balance</span
-                  ><b>{{ balance ?? "—" }} {{ nativeSymbol }}</b>
-                </div>
-                <div class="balance-line">
-                  <span>Test token balance</span
-                  ><b>{{ tokenBalance ?? "—" }} HOOD</b>
-                </div>
-                <button
-                  v-if="!correctNetwork"
-                  class="button button-primary full-width"
-                  :disabled="walletBusy"
-                  @click="switchNetwork"
-                >
-                  {{ isSwitching ? "Switching…" : "Switch to testnet" }}</button
-                ><button
-                  v-else
-                  class="button button-primary full-width"
-                  :disabled="claimDisabled"
-                  @click="claimFaucet"
-                >
-                  {{
-                    isClaiming
-                      ? "Claim in progress…"
-                      : !tokenConfigured
-                        ? "Faucet unavailable"
-                        : `Claim ${faucetAmount ?? "test"} HOOD`
-                  }}
-                </button>
-                <p v-if="!tokenConfigured" class="field-hint">
-                  The faucet contract has not been configured for this
-                  deployment.
-                </p>
-                <button
-                  class="text-button full-width"
-                  @click="openModal('wallet')"
-                >
-                  Manage wallet <FlowIcon name="external" /></button
-              ></template>
-              <p
-                v-if="walletError"
-                class="inline-message light-error"
-                role="alert"
-              >
-                {{ walletError }}
-              </p>
-              <p
-                v-if="claimMessage"
-                class="inline-message"
-                :class="
-                  claimStatus === 'error' ? 'light-error' : 'light-message'
-                "
-                role="status"
-              >
-                {{ claimMessage }}
-              </p>
-              <a
-                v-if="transactionUrl"
-                class="transaction-link"
-                :href="transactionUrl"
-                target="_blank"
-                rel="noopener noreferrer"
-                >View transaction <FlowIcon name="external"
-              /></a>
-            </aside>
-          </section>
-      </section>
-
-      <section v-if="activePage === 'Positions'" class="interior-page page-width" aria-labelledby="positions-title">
-        <div class="section-heading"><div><span class="eyebrow">YOUR NOTEBOOK / THIS SESSION</span><h1 id="positions-title">Ideas worth <br /><em>coming back to.</em></h1><p>Your practice positions, all in one place. Saved in this browser tab for this session; no assets are held.</p></div><button class="button button-primary" @click="goTo('Pools')">New preview <FlowIcon name="plus" /></button></div>
-        <div v-if="!positions.length" class="positions-empty"><div class="notebook-art" aria-hidden="true"><span>FIELD NOTES</span><div></div><div></div><div></div><div></div><b>01</b></div><div><span class="eyebrow">A FRESH PAGE</span><h2>Every idea starts <br />with a little <em>practice.</em></h2><p>Pick a pool, try a practice amount, and save a preview. Your notebook will be here when you want to reflect. No wallet required.</p><button class="button button-primary" @click="goTo('Pools')">Find a pool <FlowIcon name="arrow" /></button></div></div>
-        <div v-else class="notebook-list"><article v-for="(position, index) in positions" :key="position.id" class="position-entry"><span class="entry-number">{{ String(index + 1).padStart(2, '0') }}</span><div class="entry-description"><span class="eyebrow">{{ poolFor(position).profile }} / LOCAL PREVIEW</span><h2>{{ poolFor(position).name }}</h2><p>Simulation only. No onchain deposit, assets, fees, or accrued returns.</p></div><div class="position-amount">{{ displayAmount(position.amount) }}<small>{{ poolFor(position).token }}</small></div><div class="position-card-actions"><button class="text-button" @click="openPool(poolFor(position))">Create another <FlowIcon name="plus" /></button><button class="remove-button" :aria-label="`Remove ${poolFor(position).name} preview of ${displayAmount(position.amount)} ${poolFor(position).token}`" @click="removePosition(position)">Remove</button></div></article></div>
-        <div v-if="undoPosition" class="undo-bar" role="status"><span>Preview removed.</span><button class="text-button" @click="undoRemove">Undo removal <FlowIcon name="refresh" /></button></div>
-        <p class="notebook-footnote"><FlowIcon name="book" /> Your previews stay in this tab’s session. Closing the tab ends the session.</p>
-      </section>
-
-      <section v-if="activePage === 'Governance'" class="interior-page page-width" aria-labelledby="governance-title">
-        <div class="section-heading"><div><span class="eyebrow">A NOTE ON WHAT COMES NEXT</span><h1 id="governance-title">A shared future. <br /><em>Still taking shape.</em></h1><p>Fluxenote is an early testnet studio. Community governance is part of the future design, with space to learn along the way.</p></div><span class="tag">In development</span></div>
-        <div class="governance-layout"><div class="governance-letter"><span class="letter-mark" aria-hidden="true">*</span><h2>Understanding comes <br />before participation.</h2><p>Good decisions begin with familiarity. For now, this is a place to explore liquidity models and build your understanding, one practice position at a time.</p><button class="text-button" @click="openModal('docs')">What’s available today <FlowIcon name="arrow" /></button></div><ol class="roadmap-list"><li><span>01</span><div><span class="eyebrow">AVAILABLE TODAY</span><h3>A place to practice.</h3><p>Explore three pool models, compare sample figures, and keep local previews in your notebook.</p></div></li><li><span>02</span><div><span class="eyebrow">AN OPTIONAL NEXT STEP</span><h3>A connection to the testnet.</h3><p>Connect a compatible wallet for balances and configured faucet claims. Test tokens have no cash value.</p></div></li><li class="future-step"><span>03</span><div><span class="eyebrow">IN DEVELOPMENT</span><h3>A voice in what’s next.</h3><p>There are no active proposals or voting contracts in this release. Test token balances do not grant voting power.</p><span class="governance-status"><i class="small-dot"></i> Voting is not available yet</span></div></li></ol></div>
-        <div class="governance-invitation"><h2>For now, follow your curiosity.</h2><button class="button button-primary" @click="goTo('Pools')">Explore pool models <FlowIcon name="arrow" /></button></div>
-      </section>
-    </main>
-
-    <footer class="site-footer page-width"><div class="footer-top"><a href="#overview" class="footer-brand" @click.prevent="goTo('Overview')">fluxenote<span>Make room for understanding.</span></a><div class="footer-links"><button @click="openModal('docs')">Field guide <FlowIcon name="arrow" /></button><a :href="EXPLORER_URL" target="_blank" rel="noopener noreferrer">Explorer <FlowIcon name="external" /></a><a v-if="SOCIAL_URL" :href="SOCIAL_URL" target="_blank" rel="noopener noreferrer">Follow on X <FlowIcon name="external" /></a></div></div><div class="footer-bottom"><p>An independent project on Robinhood Chain Testnet. No affiliation with Robinhood. Test tokens have no cash value.</p><span>© 2026 Fluxenote</span></div></footer>
-          <dialog
-        ref="dialog"
-        class="app-dialog"
-        :class="{ 'guide-dialog': modalType === 'docs' }"
-        aria-labelledby="dialog-title"
-        @click="onDialogBackdrop"
-        @keydown="onDialogKeydown"
-        @close="onDialogClose"
-      >
-        <div class="dialog-inner">
-          <button
-            class="dialog-close square-button"
-            aria-label="Close dialog"
-            @click="closeModal"
-          >
-            <FlowIcon name="close" />
-          </button>
-          <template v-if="modalType === 'pool'"
-            ><div class="eyebrow">
-              A PRACTICE POSITION /
-              {{ previewStep === 1 ? "01 SET AMOUNT" : "02 REVIEW PREVIEW" }}
-            </div>
-            <h2 v-if="previewStep === 1" id="dialog-title">
-              {{ selectedPool.name }}
-            </h2>
-            <h2
-              v-else
-              id="dialog-title"
-              ref="reviewHeading"
-              class="review-heading"
-              tabindex="-1"
-            >
-              Review your practice position.
-            </h2>
-            <p class="dialog-lead">
-              {{
-                previewStep === 1
-                  ? "Build a practice position and get a feel for the flow."
-                  : `${selectedPool.name} · ${selectedPool.model}`
-              }}
-            </p>
-            <span class="tag">SIMULATION</span>
-            <div class="dialog-notice">
-              <FlowIcon name="shield" />
-              <p>
-                This is a local preview. No transaction will be sent, no assets
-                will move, and no yield will accrue.
+                Compare the inputs. Explore a pool. Save a practice position.
               </p>
             </div>
-            <form
-              v-if="previewStep === 1"
-              novalidate
-              @submit.prevent="reviewPreview"
-            >
-              <label class="field-label" for="preview-amount"
-                >Amount to preview</label
+            <span class="tag tag-blue">03 MODELS / EXAMPLE DATA</span>
+          </div>
+          <div class="pool-toolbar">
+            <div class="filter-tabs" role="group" aria-label="Filter pools">
+              <button
+                v-for="item in ['All pools', 'Core', 'Experimental']"
+                :key="item"
+                :class="{ selected: filter === item }"
+                :aria-pressed="filter === item"
+                @click="filter = item"
               >
-              <div class="amount-input">
-                <input
-                  id="preview-amount"
-                  ref="previewInput"
-                  v-model="previewAmount"
-                  type="text"
-                  inputmode="decimal"
-                  autocomplete="off"
-                  maxlength="30"
-                  placeholder="0.00"
-                  :aria-invalid="Boolean(amountError)"
-                  :aria-describedby="
-                    amountError ? 'amount-hint amount-error' : 'amount-hint'
-                  "
-                  @input="amountError = ''"
-                /><span>{{ selectedPool.token }}</span>
-              </div>
-              <p id="amount-hint" class="field-hint">
-                Up to 1,000,000 {{ selectedPool.token }} · Maximum 6 decimal
-                places{{
-                  selectedPool.token === "PTV"
-                    ? " · PTV is a legacy demo symbol"
-                    : ""
-                }}
-              </p>
-              <p
-                v-if="amountError"
-                id="amount-error"
-                class="form-error"
-                role="alert"
-              >
-                {{ amountError }}
-              </p>
-              <div
-                class="quick-amounts"
-                role="group"
-                aria-label="Set practice amount"
-              >
-                <button
-                  v-for="amount in ['100', '500', '1000']"
-                  :key="amount"
-                  type="button"
-                  @click="
-                    previewAmount = amount;
-                    amountError = '';
-                  "
-                >
-                  {{ Number(amount).toLocaleString() }}
-                </button>
-              </div>
-              <div class="review-lines">
-                <div>
-                  <span>Sample APY</span
-                  ><b>{{ selectedPool.apy }}% <small>illustrative</small></b>
-                </div>
-                <div>
-                  <span>Model</span><b>{{ selectedPool.model }}</b>
-                </div>
-                <div><span>Network fee</span><b>None · local preview</b></div>
-              </div>
-              <button class="button button-primary full-width" type="submit">
-                Review preview <FlowIcon name="arrow" />
-              </button>
-            </form>
-            <template v-else
-              ><div class="review-amount">
-                {{ displayAmount(reviewedAmount) }}
-                <span>{{ selectedPool.token }}</span>
-              </div>
-              <div class="review-lines">
-                <div>
-                  <span>Pool</span><b>{{ selectedPool.name }}</b>
-                </div>
-                <div>
-                  <span>Sample APY</span
-                  ><b>{{ selectedPool.apy }}% · not a forecast</b>
-                </div>
-                <div>
-                  <span>Saved to</span><b>This tab’s practice positions</b>
-                </div>
-                <div><span>Network transaction</span><b>None</b></div>
-              </div>
-              <label class="check-label"
-                ><input v-model="acknowledged" type="checkbox" /><span
-                  >I understand this is a simulation with no real deposit or
-                  returns.</span
-                ></label
-              ><button
-                class="button button-primary full-width"
-                :disabled="!acknowledged"
-                @click="savePreview"
-              >
-                Save preview position <FlowIcon name="check" /></button
-              ><button
-                class="text-button dark-text back-button"
-                @click="
-                  previewStep = 1;
-                  nextTick(() => previewInput?.focus());
-                "
-              >
-                Back to amount
-              </button></template
-            >
-          </template>
-          <template v-if="modalType === 'wallet'"
-            ><div class="eyebrow">YOUR TESTNET CONNECTION</div>
-            <h2 id="dialog-title">A window to the testnet.</h2>
-            <p class="dialog-lead">
-              Connect an EVM wallet to read your balances and request test
-              tokens.
-            </p>
-            <div class="wallet-status-card">
-              <FlowIcon name="wallet" />
-              <div>
-                <strong>{{
-                  connected ? shortAccount : "No wallet connected"
-                }}</strong
-                ><span>{{
-                  connected
-                    ? correctNetwork
-                      ? CHAIN_PARAMS.chainName
-                      : "Switch to Robinhood Chain Testnet"
-                    : "Connect when you’re ready."
+                {{ item
+                }}<span>{{
+                  item === "All pools" ? "3" : item === "Core" ? "2" : "1"
                 }}</span>
-              </div>
-              <span v-if="connected" class="small-dot"></span>
+              </button>
             </div>
-            <template v-if="connected"
-              ><p class="wallet-address">{{ account }}</p>
-              <div class="review-lines">
+            <label class="search-box"
+              ><FlowIcon name="search" /><input
+                v-model="search"
+                type="search"
+                placeholder="Search pools or tokens"
+                aria-label="Search pools" /></label
+            ><label class="sort-box"
+              ><FlowIcon name="sort" /><select
+                v-model="sort"
+                aria-label="Sort pools"
+              >
+                <option value="featured">Featured first</option>
+                <option value="apy">Sample APY</option>
+                <option value="tvl">Sample TVL</option>
+              </select></label
+            >
+          </div>
+          <div class="pool-results" role="status" aria-live="polite">
+            <span
+              >{{ filteredPools.length }}
+              {{
+                filteredPools.length === 1 ? "model" : "models"
+              }}
+              available</span
+            ><span>LOCAL SIMULATIONS</span>
+          </div>
+          <div class="pool-grid">
+            <article
+              v-for="pool in filteredPools"
+              :key="pool.id"
+              :class="['pool-card', pool.color]"
+            >
+              <div class="pool-card-top">
+                <div class="token-pair">
+                  <span>{{ pool.symbols[0] }}</span
+                  ><span>{{ pool.symbols[1] }}</span>
+                </div>
+                <span class="tag">{{ pool.profile }}</span>
+              </div>
+              <h2>{{ pool.name }}</h2>
+              <p class="pool-pair">
+                {{ pool.pair }} <span>·</span> {{ pool.model }}
+              </p>
+              <div class="mini-chart" aria-hidden="true">
+                <span
+                  v-for="bar in 18"
+                  :key="bar"
+                  :style="{
+                    height: `${23 + ((bar * 13 + pool.apy) % 53) + bar * 1.3}%`,
+                  }"
+                ></span>
+              </div>
+              <div class="pool-metrics">
                 <div>
-                  <span>Network balance</span
-                  ><b>{{ balance ?? "—" }} {{ nativeSymbol }}</b>
+                  <span>Sample APY</span
+                  ><strong>{{ pool.apy }}<small>%</small></strong>
                 </div>
                 <div>
-                  <span>Test token balance</span
-                  ><b>{{ tokenBalance ?? "—" }} HOOD</b>
+                  <span>Sample TVL</span
+                  ><strong>${{ pool.tvl }}<small>M</small></strong>
                 </div>
               </div>
               <button
-                v-if="!correctNetwork"
-                class="button button-primary full-width"
-                :disabled="walletBusy"
-                @click="switchNetwork"
+                class="button button-secondary full-width"
+                :aria-label="`Preview ${pool.name} pool`"
+                @click="openPool(pool)"
               >
-                {{ isSwitching ? "Switching network…" : "Switch to testnet" }}
-                <FlowIcon name="arrow" /></button
-              ><button
-                v-else
-                class="button button-primary full-width"
-                :disabled="claimDisabled"
-                @click="claimFaucet"
+                Preview model <FlowIcon name="arrow" /></button
+              ><span class="pool-card-footnote"
+                >Illustrative figures · No deposit required</span
               >
-                {{
-                  isClaiming
-                    ? "Claim in progress…"
-                    : !tokenConfigured
-                      ? "Faucet unavailable"
-                      : `Claim ${faucetAmount ?? "test"} HOOD`
-                }}
-                <FlowIcon name="arrow" />
-              </button>
-              <p v-if="!tokenConfigured" class="field-hint">
-                The faucet contract is not configured for this deployment.
-              </p>
-              <div class="wallet-controls">
-                <button
-                  class="text-button dark-text"
-                  :disabled="walletBusy || isRefreshing"
-                  @click="refreshBalances"
-                >
-                  <FlowIcon name="refresh" />{{
-                    isRefreshing ? "Refreshing…" : "Refresh balances"
-                  }}</button
-                ><button
-                  class="text-button dark-text"
-                  :disabled="walletBusy"
-                  @click="disconnectWallet"
-                >
-                  Disconnect
-                </button>
-              </div></template
-            >
-            <button
-              v-else
-              class="button button-primary full-width"
-              :disabled="walletBusy"
-              @click="connectWallet"
-            >
-              {{ isConnecting ? "Waiting for wallet…" : "Connect EVM wallet" }}
-              <FlowIcon name="arrow" />
+            </article>
+          </div>
+          <div v-if="!filteredPools.length" class="empty-state">
+            <span class="empty-icon"><FlowIcon name="search" /></span>
+            <h2>No matching models</h2>
+            <p>Try a different token or reset your filters.</p>
+            <button class="button button-secondary" @click="resetFilters">
+              Reset filters <FlowIcon name="refresh" />
             </button>
+          </div>
+          <div class="info-strip">
+            <FlowIcon name="info" />
+            <p>
+              APY and TVL are illustrative. PTV is a demo symbol, separate from
+              HOOD test tokens. Previews move no assets.
+            </p>
+            <button class="text-button" @click="openModal('docs')">
+              Read the guide <FlowIcon name="arrow" />
+            </button>
+          </div>
+          <section class="testnet-section" aria-label="Testnet connection">
+            <div class="testnet-copy">
+              <span class="eyebrow">NEXT ENVIRONMENT / OPTIONAL</span>
+              <h2>Take a step onto the testnet.</h2>
+              <p>
+                Read wallet balances and request HOOD test tokens on Robinhood
+                Chain Testnet. Your local previews stay separate.
+              </p>
+              <span class="tag">TEST TOKENS HAVE NO CASH VALUE</span>
+            </div>
+            <div class="testnet-panel">
+              <span class="wallet-panel-icon"><FlowIcon name="wallet" /></span>
+              <div>
+                <h3>
+                  {{ connected ? shortAccount : "Your wallet, when ready." }}
+                </h3>
+                <p>
+                  {{
+                    connected
+                      ? correctNetwork
+                        ? "Connected to Robinhood Chain Testnet"
+                        : "Switch networks to access test tokens"
+                      : "Connect an EVM wallet to get started."
+                  }}
+                </p>
+                <div v-if="connected" class="testnet-balance">
+                  <span>{{ balance ?? "—" }} {{ nativeSymbol }}</span
+                  ><span>{{ tokenBalance ?? "—" }} HOOD</span>
+                </div>
+                <button
+                  class="button button-secondary"
+                  @click="openModal('wallet')"
+                >
+                  {{ connected ? "Manage wallet" : "Connect wallet" }}
+                  <FlowIcon name="arrow" />
+                </button>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <section
+          v-if="activePage === 'Positions'"
+          class="positions-page"
+          aria-labelledby="positions-title"
+        >
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">
+                <span class="tiny-rule"></span> YOUR SESSION
+              </p>
+              <h1 id="positions-title">Your ideas, on record.</h1>
+              <p>
+                A collection of practice positions. Saved in this tab, ready to
+                revisit.
+              </p>
+            </div>
+            <button class="button button-primary" @click="goTo('Pools')">
+              <FlowIcon name="plus" /> New preview
+            </button>
+          </div>
+          <div class="position-summary">
+            <span class="stat-icon purple"><FlowIcon name="portfolio" /></span>
+            <div>
+              <span>Saved positions</span
+              ><strong>{{ String(positions.length).padStart(2, "0") }}</strong>
+            </div>
+            <span class="tag">LOCAL SESSION</span>
+          </div>
+          <div v-if="!positions.length" class="empty-state position-empty">
+            <div class="empty-stack" aria-hidden="true">
+              <div></div>
+              <div></div>
+              <div><FlowIcon name="plus" /><span>YOUR FIRST PREVIEW</span></div>
+            </div>
+            <h2>A clean slate. A place to start.</h2>
+            <p>
+              Choose a model and try an amount. Your first practice position is
+              a few clicks away.
+            </p>
+            <button class="button button-primary" @click="goTo('Pools')">
+              Explore pool models <FlowIcon name="arrow" /></button
+            ><span class="empty-caption">No wallet or real assets needed</span>
+          </div>
+          <div v-else class="positions-ledger">
+            <div class="ledger-head" aria-hidden="true">
+              <span>MODEL / CREATED</span><span>PRACTICE AMOUNT</span
+              ><span>STATUS</span><span>ACTIONS</span>
+            </div>
+            <article
+              v-for="position in positions"
+              :key="position.id"
+              class="position-entry"
+            >
+              <div class="entry-identity">
+                <span :class="['entry-icon', poolFor(position).color]"
+                  ><FlowIcon name="layers"
+                /></span>
+                <div>
+                  <h2>{{ poolFor(position).name }}</h2>
+                  <p>
+                    {{ poolFor(position).profile }}
+                    <span>· {{ displayDate(position.createdAt) }}</span>
+                  </p>
+                </div>
+              </div>
+              <div class="position-amount">
+                {{ displayAmount(position.amount)
+                }}<span>{{ poolFor(position).token }}</span>
+              </div>
+              <span class="position-status"
+                ><i class="status-dot"></i> Preview</span
+              >
+              <div class="position-actions">
+                <button
+                  class="square-button"
+                  :aria-label="`Create another ${poolFor(position).name} preview`"
+                  @click="openPool(poolFor(position))"
+                >
+                  <FlowIcon name="plus" /></button
+                ><button
+                  class="square-button remove-button"
+                  :aria-label="`Remove ${poolFor(position).name} preview of ${displayAmount(position.amount)} ${poolFor(position).token}`"
+                  @click="removePosition(position)"
+                >
+                  <FlowIcon name="trash" />
+                </button>
+              </div>
+            </article>
+          </div>
+          <div v-if="undoPosition" class="undo-bar" role="status">
+            <span><FlowIcon name="trash" /> Preview removed.</span
+            ><button class="text-button" @click="undoRemove">
+              Undo removal <FlowIcon name="refresh" />
+            </button>
+          </div>
+          <p class="session-note">
+            <FlowIcon name="shield" /> Simulation only: no deposits, fees, or
+            accrued returns. Closing this tab ends your saved session.
+          </p>
+        </section>
+
+        <section
+          v-if="activePage === 'Governance'"
+          class="governance-page"
+          aria-labelledby="governance-title"
+        >
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">
+                <span class="tiny-rule"></span> PROJECT DIRECTION
+              </p>
+              <h1 id="governance-title">Build understanding. Then a voice.</h1>
+              <p>
+                Community governance is part of the future design of Calivect.
+              </p>
+            </div>
+            <span class="tag tag-purple">IN DEVELOPMENT</span>
+          </div>
+          <div class="governance-layout">
+            <section class="governance-status-panel">
+              <div class="governance-glyph" aria-hidden="true">
+                <FlowIcon name="community" />
+              </div>
+              <span class="eyebrow">GOVERNANCE STATUS</span>
+              <h2>The foundation<br />comes first.</h2>
+              <p>
+                Today, Calivect is a workspace for learning how liquidity works.
+                There are no active proposals or voting contracts in this
+                release.
+              </p>
+              <div class="governance-status">
+                <span class="status-dot"></span> Voting is not available yet
+              </div>
+              <p class="muted-note">
+                Test token balances do not grant voting power.
+              </p>
+            </section>
+            <section class="roadmap-panel" aria-labelledby="roadmap-title">
+              <div class="panel-heading">
+                <div>
+                  <span class="eyebrow">CAPABILITY MAP</span>
+                  <h2 id="roadmap-title">Where things stand.</h2>
+                </div>
+              </div>
+              <ol class="roadmap-list">
+                <li>
+                  <span class="roadmap-node"><FlowIcon name="check" /></span>
+                  <div>
+                    <span class="tag tag-green">AVAILABLE</span>
+                    <h3>Explore &amp; simulate</h3>
+                    <p>
+                      Compare three pool models and save local practice
+                      positions. Start without a wallet.
+                    </p>
+                    <button class="text-button" @click="goTo('Pools')">
+                      Open model library <FlowIcon name="arrow" />
+                    </button>
+                  </div>
+                </li>
+                <li>
+                  <span class="roadmap-node"><FlowIcon name="check" /></span>
+                  <div>
+                    <span class="tag tag-blue">OPTIONAL</span>
+                    <h3>Connect to the testnet</h3>
+                    <p>
+                      Read wallet balances and access the configured HOOD faucet
+                      with a compatible EVM wallet.
+                    </p>
+                    <button class="text-button" @click="openModal('wallet')">
+                      Manage connection <FlowIcon name="arrow" />
+                    </button>
+                  </div>
+                </li>
+                <li class="future-step">
+                  <span class="roadmap-node"><FlowIcon name="clock" /></span>
+                  <div>
+                    <span class="tag">IN DEVELOPMENT</span>
+                    <h3>Community participation</h3>
+                    <p>
+                      Proposals, voting mechanics, and participation rules are
+                      still being designed. No launch date is announced.
+                    </p>
+                  </div>
+                </li>
+              </ol>
+            </section>
+          </div>
+          <div class="info-strip">
+            <FlowIcon name="book" />
+            <p>
+              Get familiar with the current capabilities before taking the next
+              step.
+            </p>
+            <button class="text-button" @click="openModal('docs')">
+              Open the guide <FlowIcon name="arrow" />
+            </button>
+          </div>
+        </section>
+      </main>
+      <footer class="site-footer">
+        <div>
+          <span class="footer-brand">calivect</span
+          ><span>Understand by doing.</span>
+        </div>
+        <div class="footer-links">
+          <button @click="openModal('docs')">
+            Guide <FlowIcon name="external" /></button
+          ><a
+            v-if="SOCIAL_URL"
+            :href="SOCIAL_URL"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Follow on X <FlowIcon name="external" /></a
+          ><span>© 2026</span>
+        </div>
+        <p>
+          Independent project on Robinhood Chain Testnet. No affiliation with
+          Robinhood. Test tokens have no cash value.
+        </p>
+      </footer>
+    </div>
+
+    <dialog
+      ref="dialog"
+      class="app-dialog"
+      :class="{ 'guide-dialog': modalType === 'docs' }"
+      aria-labelledby="dialog-title"
+      @click="onDialogBackdrop"
+      @keydown="onDialogKeydown"
+      @close="onDialogClose"
+    >
+      <div class="dialog-inner">
+        <button
+          class="dialog-close square-button"
+          aria-label="Close dialog"
+          @click="closeModal"
+        >
+          <FlowIcon name="close" />
+        </button>
+        <template v-if="modalType === 'pool'"
+          ><div class="dialog-kicker">
+            <span class="dialog-icon"><FlowIcon name="layers" /></span
+            ><span>LOCAL SIMULATION</span
+            ><span class="dialog-step">{{ previewStep }} / 2</span>
+          </div>
+          <h2 v-if="previewStep === 1" id="dialog-title">
+            {{ selectedPool.name }}
+          </h2>
+          <h2 v-else id="dialog-title" ref="reviewHeading" tabindex="-1">
+            Ready to save?
+          </h2>
+          <p class="dialog-lead">
+            {{
+              previewStep === 1
+                ? "Set a practice amount and explore the details."
+                : `${selectedPool.name} · ${selectedPool.model}`
+            }}
+          </p>
+          <div class="step-track" aria-hidden="true">
+            <span class="complete">01 <b>Set amount</b></span
+            ><i></i
+            ><span :class="{ complete: previewStep === 2 }"
+              >02 <b>Review & save</b></span
+            >
+          </div>
+          <div class="dialog-notice">
+            <FlowIcon name="shield" />
+            <p>
+              A local preview. No assets move, no transaction is sent, and no
+              yield accrues.
+            </p>
+          </div>
+          <form
+            v-if="previewStep === 1"
+            novalidate
+            @submit.prevent="reviewPreview"
+          >
+            <label class="field-label" for="preview-amount"
+              >Practice amount</label
+            >
+            <div class="amount-input">
+              <input
+                id="preview-amount"
+                ref="previewInput"
+                v-model="previewAmount"
+                type="text"
+                inputmode="decimal"
+                autocomplete="off"
+                maxlength="30"
+                placeholder="0.00"
+                :aria-invalid="Boolean(amountError)"
+                :aria-describedby="
+                  amountError ? 'amount-hint amount-error' : 'amount-hint'
+                "
+                @input="amountError = ''"
+              /><span>{{ selectedPool.token }}</span>
+            </div>
+            <p id="amount-hint" class="field-hint">
+              Up to 1,000,000 {{ selectedPool.token }} · Maximum 6 decimal
+              places
+            </p>
             <p
-              v-if="walletError"
-              class="inline-message light-error"
+              v-if="amountError"
+              id="amount-error"
+              class="form-error"
               role="alert"
             >
-              {{ walletError }}
+              {{ amountError }}
             </p>
-            <p
-              v-if="claimMessage"
-              class="inline-message"
-              :class="claimStatus === 'error' ? 'light-error' : 'light-message'"
-              role="status"
+            <div
+              class="quick-amounts"
+              role="group"
+              aria-label="Set practice amount"
             >
-              {{ claimMessage }}
-            </p>
-            <a
-              v-if="transactionUrl"
-              class="transaction-link"
-              :href="transactionUrl"
-              target="_blank"
-              rel="noopener noreferrer"
-              >View transaction <FlowIcon name="external"
-            /></a>
-            <p class="wallet-footnote">
-              Connecting does not send a transaction. A HOOD claim requires a
-              separate wallet confirmation and a network fee. Faucet
-              availability and cooldown are read from the contract.
-            </p>
-          </template>
-          <template v-if="modalType === 'docs'"
-            ><div class="eyebrow">THE FLUXENOTE FIELD GUIDE</div>
-            <h2 id="dialog-title">A field guide to finding your feet.</h2>
-            <p class="dialog-lead">
-              Understand the models, save a preview, and explore the testnet when ready.
-            </p>
-            <div class="guide-step">
-              <span>01</span>
+              <button
+                v-for="amount in ['100', '500', '1000']"
+                :key="amount"
+                type="button"
+                @click="
+                  previewAmount = amount;
+                  amountError = '';
+                "
+              >
+                {{ Number(amount).toLocaleString() }}
+                <span>{{ selectedPool.token }}</span>
+              </button>
+            </div>
+            <div class="review-lines">
               <div>
-                <h3>Explore a pool model.</h3>
-                <p>
-                  Filter the three sample pool models by category, search by
-                  token, or compare illustrative APY and TVL. These figures are
-                  examples, not live markets or expected returns.
-                </p>
+                <span>Model</span><b>{{ selectedPool.model }}</b>
               </div>
-            </div>
-            <div class="guide-step">
-              <span>02</span>
               <div>
-                <h3>Make a practice position.</h3>
-                <p>
-                  Enter an amount, review the details, and save a local preview.
-                  Previews stay in this tab’s session and can be removed or
-                  restored. No wallet, deposit, or transaction is required.
-                </p>
+                <span>Sample APY</span
+                ><b>{{ selectedPool.apy }}% <small>illustrative</small></b>
               </div>
+              <div><span>Network fee</span><b>None · local preview</b></div>
             </div>
-            <div class="guide-step">
-              <span>03</span>
+            <button class="button button-primary full-width" type="submit">
+              Review preview <FlowIcon name="arrow" />
+            </button>
+          </form>
+          <template v-else
+            ><div class="review-amount">
+              <span>PRACTICE AMOUNT</span
+              ><strong
+                >{{ displayAmount(reviewedAmount) }}
+                <small>{{ selectedPool.token }}</small></strong
+              >
+            </div>
+            <div class="review-lines">
               <div>
-                <h3>Try the testnet when ready.</h3>
-                <p>
-                  Connect an EVM wallet and switch to
-                  {{ CHAIN_PARAMS.chainName }} (chain ID {{ CHAIN_ID }}). If the
-                  HOOD contract is configured, you can request faucet tokens and
-                  follow the transaction in the explorer.
-                </p>
+                <span>Pool</span><b>{{ selectedPool.name }}</b>
               </div>
+              <div>
+                <span>Sample APY</span
+                ><b>{{ selectedPool.apy }}% · not a forecast</b>
+              </div>
+              <div>
+                <span>Saved to</span><b>This tab’s practice positions</b>
+              </div>
+              <div><span>Network transaction</span><b>None</b></div>
             </div>
-            <div class="guide-contract">
-              <p class="eyebrow">HOOD TEST TOKEN CONTRACT</p>
-              <a
-                v-if="tokenConfigured"
-                :href="`${explorerBase}/address/${CONTRACT_ADDRESS}`"
-                target="_blank"
-                rel="noopener noreferrer"
-                >{{ CONTRACT_ADDRESS }} <FlowIcon name="external"
-              /></a>
-              <p v-else>Not configured for this deployment</p>
+            <label class="check-label"
+              ><input v-model="acknowledged" type="checkbox" /><span
+                >I understand this is a simulation with no real deposit or
+                returns.</span
+              ></label
+            ><button
+              class="button button-primary full-width"
+              :disabled="!acknowledged"
+              @click="savePreview"
+            >
+              Save preview position <FlowIcon name="check" /></button
+            ><button
+              class="text-button back-button"
+              @click="
+                previewStep = 1;
+                nextTick(() => previewInput?.focus());
+              "
+            >
+              Back to amount
+            </button></template
+          >
+        </template>
+        <template v-if="modalType === 'wallet'"
+          ><div class="dialog-kicker">
+            <span class="dialog-icon"><FlowIcon name="wallet" /></span
+            ><span>TESTNET CONNECTION</span>
+          </div>
+          <h2 id="dialog-title">Your gateway to testnet.</h2>
+          <p class="dialog-lead">
+            Connect an EVM wallet to read balances and request HOOD test tokens.
+          </p>
+          <div class="wallet-status-card">
+            <FlowIcon name="wallet" />
+            <div>
+              <strong>{{
+                connected ? shortAccount : "No wallet connected"
+              }}</strong
+              ><span>{{
+                connected
+                  ? correctNetwork
+                    ? CHAIN_PARAMS.chainName
+                    : "Network switch required"
+                  : "Your local previews work without a wallet."
+              }}</span>
             </div>
-            <div class="guide-details">
-              <details>
-                <summary>How do the tokens differ?</summary>
-                <p>
-                  HOOD is the Robinhood Commons testnet utility token used by
-                  the faucet. PTV is a legacy demo symbol shown only in sample
-                  pool models. It is not a Fluxenote token. {{ nativeSymbol }} is
-                  the configured network currency. Test tokens have no cash
-                  value.
-                </p>
-              </details>
-              <details>
-                <summary>What is available in this release?</summary>
-                <p>
-                  Pool exploration and saved local previews are available.
-                  Wallet balances and faucet claims require a configured
-                  deployment and a compatible wallet. Live liquidity deposits,
-                  staking, swaps, and governance voting are not implemented.
-                </p>
-              </details>
-              <details>
-                <summary>Why can’t I claim more HOOD?</summary>
-                <p>
-                  The faucet contract controls its amount, cooldown, supply cap,
-                  and paused state. The default is 100 HOOD with a one-day
-                  cooldown. The page checks current availability before asking
-                  you to confirm a claim.
-                </p>
-              </details>
+            <span v-if="connected" class="status-dot"></span>
+          </div>
+          <template v-if="connected"
+            ><p class="wallet-address">{{ account }}</p>
+            <div class="review-lines">
+              <div>
+                <span>Network balance</span
+                ><b>{{ balance ?? "—" }} {{ nativeSymbol }}</b>
+              </div>
+              <div>
+                <span>Test token balance</span
+                ><b>{{ tokenBalance ?? "—" }} HOOD</b>
+              </div>
             </div>
             <button
+              v-if="!correctNetwork"
               class="button button-primary full-width"
-              @click="goTo('Pools')"
+              :disabled="walletBusy"
+              @click="switchNetwork"
             >
-              Explore pools <FlowIcon name="arrow" />
+              {{ isSwitching ? "Switching network…" : "Switch to testnet" }}
+              <FlowIcon name="arrow" /></button
+            ><button
+              v-else
+              class="button button-primary full-width"
+              :disabled="claimDisabled"
+              @click="claimFaucet"
+            >
+              {{
+                isClaiming
+                  ? "Claim in progress…"
+                  : !tokenConfigured
+                    ? "Faucet unavailable"
+                    : `Claim ${faucetAmount ?? "test"} HOOD`
+              }}
+              <FlowIcon name="arrow" />
             </button>
-          </template>
-        </div>
-      </dialog>
-    <div v-if="toast" class="toast" role="status" aria-live="polite"><FlowIcon name="check" /><span>{{ toast }}</span><button aria-label="Dismiss notification" @click="toast = ''"><FlowIcon name="close" /></button></div>
+            <p v-if="!tokenConfigured" class="field-hint">
+              The faucet contract is not configured for this deployment.
+            </p>
+            <div class="wallet-controls">
+              <button
+                class="text-button"
+                :disabled="walletBusy || isRefreshing"
+                @click="refreshBalances"
+              >
+                <FlowIcon name="refresh" />{{
+                  isRefreshing ? "Refreshing…" : "Refresh balances"
+                }}</button
+              ><button
+                class="text-button"
+                :disabled="walletBusy"
+                @click="disconnectWallet"
+              >
+                Disconnect
+              </button>
+            </div></template
+          ><button
+            v-else
+            class="button button-primary full-width"
+            :disabled="walletBusy"
+            @click="connectWallet"
+          >
+            {{ isConnecting ? "Waiting for wallet…" : "Connect EVM wallet" }}
+            <FlowIcon name="arrow" />
+          </button>
+          <p v-if="walletError" class="inline-message light-error" role="alert">
+            {{ walletError }}
+          </p>
+          <p
+            v-if="claimMessage"
+            class="inline-message"
+            :class="claimStatus === 'error' ? 'light-error' : 'light-message'"
+            role="status"
+          >
+            {{ claimMessage }}
+          </p>
+          <a
+            v-if="transactionUrl"
+            class="transaction-link"
+            :href="transactionUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            >View transaction <FlowIcon name="external"
+          /></a>
+          <p class="wallet-footnote">
+            Connecting does not send a transaction. A HOOD claim requires a
+            separate wallet confirmation and a network fee. Faucet availability
+            and cooldown are read from the contract.
+          </p></template
+        >
+        <template v-if="modalType === 'docs'"
+          ><div class="dialog-kicker">
+            <span class="dialog-icon"><FlowIcon name="book" /></span
+            ><span>CALIVECT / QUICK START</span>
+          </div>
+          <h2 id="dialog-title">From first look to first preview.</h2>
+          <p class="dialog-lead">
+            Everything you need to navigate the workspace.
+          </p>
+          <div class="guide-step">
+            <span>01</span>
+            <div>
+              <h3>Choose a model</h3>
+              <p>
+                Explore three example pool models. Filter by profile, search by
+                token, or compare sample APY and TVL. All figures are
+                illustrative, not live markets or expected returns.
+              </p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <span>02</span>
+            <div>
+              <h3>Save a practice position</h3>
+              <p>
+                Enter an amount, review the details, then save. Previews stay in
+                this tab’s session and can be removed or restored. No wallet or
+                transaction is required.
+              </p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <span>03</span>
+            <div>
+              <h3>Explore the testnet</h3>
+              <p>
+                Connect an EVM wallet to {{ CHAIN_PARAMS.chainName }} (chain ID
+                {{ CHAIN_ID }}). When the HOOD contract is configured, request
+                faucet tokens and follow the transaction in the explorer.
+              </p>
+            </div>
+          </div>
+          <div class="guide-contract">
+            <span class="eyebrow">HOOD TEST TOKEN CONTRACT</span
+            ><a
+              v-if="tokenConfigured"
+              :href="`${explorerBase}/address/${CONTRACT_ADDRESS}`"
+              target="_blank"
+              rel="noopener noreferrer"
+              >{{ CONTRACT_ADDRESS }} <FlowIcon name="external"
+            /></a>
+            <p v-else>Not configured for this deployment</p>
+          </div>
+          <div class="guide-details">
+            <details>
+              <summary>How do the tokens differ?</summary>
+              <p>
+                HOOD is the Robinhood Commons testnet utility token used by the
+                faucet. PTV is a legacy demo symbol in sample pools; it is not a
+                Calivect token. {{ nativeSymbol }} is the configured network
+                currency. Test tokens have no cash value.
+              </p>
+            </details>
+            <details>
+              <summary>What can I do in this release?</summary>
+              <p>
+                Explore pools and save local previews. Wallet balances and
+                faucet claims require a configured deployment and a compatible
+                wallet. Live liquidity deposits, staking, swaps, and governance
+                voting are not implemented.
+              </p>
+            </details>
+            <details>
+              <summary>Why can’t I claim more HOOD?</summary>
+              <p>
+                The faucet contract controls its amount, cooldown, supply cap,
+                and paused state. The default is 100 HOOD with a one-day
+                cooldown. Current availability is checked before you are asked
+                to confirm a claim.
+              </p>
+            </details>
+          </div>
+          <button
+            class="button button-primary full-width"
+            @click="goTo('Pools')"
+          >
+            Explore pool models <FlowIcon name="arrow" /></button
+        ></template>
+      </div>
+    </dialog>
+    <div v-if="toast" class="toast" role="status" aria-live="polite">
+      <FlowIcon name="check" /><span>{{ toast }}</span
+      ><button
+        class="square-button"
+        aria-label="Dismiss notification"
+        @click="toast = ''"
+      >
+        <FlowIcon name="close" />
+      </button>
+    </div>
   </div>
 </template>

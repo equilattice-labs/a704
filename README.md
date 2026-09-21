@@ -1,6 +1,6 @@
-# Fluxenote frontend
+# Calivect frontend
 
-**Make room for understanding.** Vue 3 / Vite on Robinhood Chain Testnet, chain ID 46630.
+**Understand by doing.** Vue 3 / Vite, Robinhood Chain Testnet, chain ID 46630.
 
 ```sh
 npm install
@@ -9,12 +9,10 @@ npm test
 npm run build
 ```
 
-The editorial interface includes an introduction, searchable model comparison, a local practice notebook, governance scope, preview forms and a testnet wallet panel. Pool figures are illustrative. Saving a preview does not move assets or submit a deposit.
+The dark workbench provides interactive model exploration, a searchable pool library, local simulation records, governance scope and an optional testnet wallet panel. Sample APY/TVL are illustrative; saving a simulation never submits a deposit.
 
-Copy `.env.example` to `.env` for a new environment. `VITE_CONTRACT_ADDRESS`, `VITE_CHAIN_ID`, `VITE_RPC_URL` and `VITE_EXPLORER_URL` keep their existing meaning. A zero address disables the faucet. Every `VITE_` value becomes public in the bundle.
+Copy `.env.example` to `.env` for a new environment. Existing `VITE_CONTRACT_ADDRESS`, `VITE_CHAIN_ID`, `VITE_RPC_URL` and `VITE_EXPLORER_URL` keep their meaning. A zero contract address disables the faucet. Every `VITE_` value becomes public in the bundle.
 
-Selected destinations are fluxenote.xyz and @fluxenote; dated checks and ownership limits are in the root `list.txt`. Set `VITE_X_URL` only after confirming account control.
+Selected destinations: calivect.xyz and @calivect. Dated checks and ownership limitations are in root `list.txt`. Set `VITE_X_URL` only after confirming account control.
 
-Robinhood Commons (HOOD), the RobinhoodCommons ABI, network settings and wallet logic remain compatible. PTV is an illustrative symbol and no new project token is introduced. Existing session keys and pool IDs preserve saved previews. `#staking` still opens positions.
-
-`website/a704/` is the secondary copy. Run root `scripts/sync-frontend.ps1` before building it. See root `UX_VALIDATION.md` and `BRAND_UPDATE_SCAN.md` for verification.
+Robinhood Commons (HOOD), RobinhoodCommons ABI, wallet behavior, session key and pool IDs remain compatible. No new token is introduced. `#staking` continues to open saved positions. Use root `scripts/sync-frontend.ps1` to synchronize `website/a704/` without publishing.

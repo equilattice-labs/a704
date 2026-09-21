@@ -1,19 +1,17 @@
-Brand: Fluxenote
-Slug: fluxenote
-Tagline: Make room for understanding.
-Headline: Room to try. Space to understand.
-Meaning: flux + note; observations from practicing with liquidity models.
-Selected domain: fluxenote.xyz
-Selected X: @fluxenote / https://x.com/fluxenote
-Status: planned destinations; checks in ../list.txt. Ownership not established.
+Brand: Calivect
+Slug: calivect
+Pronunciation: KAL-i-vekt
+Meaning: calibrate + vector; understand liquidity through measured experiments.
+Tagline: Understand by doing.
+Selected domain: calivect.xyz
+Alternatives: calivect.fun / calivect.top
+Selected X: @calivect / https://x.com/calivect
+Status: proposed destinations, not registered or owned; dated checks in ../list.txt.
 
-Product: compare sample models, review an amount, save a local tab-session preview.
-Network: Robinhood Chain Testnet, 46630, RBH.
-Testnet token: Robinhood Commons (HOOD); contract/ABI RobinhoodCommons.
-PTV is an existing sample symbol. No new token or ticker.
-Wallet and configured HOOD faucet use the testnet. Pool previews do not submit deposits.
+Product: explore illustrative models, adjust an educational mix, review an amount, save a local tab-session simulation.
+Network: Robinhood Chain Testnet / 46630 / RBH.
+Token: Robinhood Commons (HOOD); contract/ABI RobinhoodCommons.
+PTV remains a sample symbol. No new token or ticker.
 
-Visuals: paper #f4f1e8, ink #242822, terracotta #b84f31, forest #395a48.
-Typography: editorial Georgia headings and local sans-serif body.
-Layout: horizontal navigation, open hero, circular geometry, comparison rows, notebook.
-Public artwork: fluxenote-mark.svg, fluxenote-og.png, favicon.svg.
+Visual direction: deep navy workbench; ice-blue, violet and lime accents; local sans-serif; monospaced numbers; geometric asset modules; vertical navigation; model cards; simulation ledger.
+Public artwork: calivect-mark.svg, calivect-og.png, favicon.svg.
