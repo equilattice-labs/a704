@@ -1,17 +1,14 @@
-Brand: Rivo
-Slug: rivo
-Pronunciation: REE-voh
-Meaning: river + flow; move through liquidity with intent.
-Tagline: Move with intent.
-Selected domain: rivo.xyz
-Alternatives: rivo.fun / rivo.top
-Selected X: @rivo / https://x.com/rivo
-Status: proposed destinations, not registered or owned; dated checks in ../list.txt.
+Brand: Zuno
+Slug / wordmark: zuno
+Pronunciation: ZOO-noh
+Tagline: Find your flow.
+Domain / X handle: TBD. No availability or ownership claim.
 
-Product: explore illustrative models, adjust an educational mix, review an amount, save a local tab-session simulation.
+Product: explore sample pools, adjust an educational mix, review an amount, save a local tab-session simulation.
 Network: Robinhood Chain Testnet / 46630 / RBH.
-Token: Robinhood Commons (HOOD); contract/ABI RobinhoodCommons.
+Token: Robinhood Commons (HOOD); contract / ABI RobinhoodCommons.
 PTV remains a sample symbol. No new token or ticker.
 
-Visual direction: dark purple market surfaces; neon mint, violet and pink accents; rounded token cards; market-style controls; pool cards; session ledger.
-Public artwork: rivo-mark.svg, rivo-og.png, favicon.svg.
+Visual direction: crypto-native black-purple surfaces, lime actions, lavender secondary color, warm white text, rounded trading cards, pill controls, and a circular z mark.
+Palette: #101014 / #19191f / #c5fa5f / #b7a0ff / #f3f2ed.
+Public artwork: zuno-mark.svg, zuno-og.png, favicon.svg.
