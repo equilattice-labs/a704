@@ -1,6 +1,6 @@
-# Calivect frontend
+# Rivo frontend
 
-**Understand by doing.** Vue 3 / Vite, Robinhood Chain Testnet, chain ID 46630.
+**Move with intent.** Vue 3 / Vite, Robinhood Chain Testnet, chain ID 46630.
 
 ```sh
 npm install
@@ -13,6 +13,6 @@ The dark workbench provides interactive model exploration, a searchable pool lib
 
 Copy `.env.example` to `.env` for a new environment. Existing `VITE_CONTRACT_ADDRESS`, `VITE_CHAIN_ID`, `VITE_RPC_URL` and `VITE_EXPLORER_URL` keep their meaning. A zero contract address disables the faucet. Every `VITE_` value becomes public in the bundle.
 
-Selected destinations: calivect.xyz and @calivect. Dated checks and ownership limitations are in root `list.txt`. Set `VITE_X_URL` only after confirming account control.
+Selected destinations: rivo.xyz and @rivo. Dated checks and ownership limitations are in root `list.txt`. Set `VITE_X_URL` only after confirming account control.
 
 Robinhood Commons (HOOD), RobinhoodCommons ABI, wallet behavior, session key and pool IDs remain compatible. No new token is introduced. `#staking` continues to open saved positions. Use root `scripts/sync-frontend.ps1` to synchronize `website/a704/` without publishing.

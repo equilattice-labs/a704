@@ -44,7 +44,7 @@ const sort = ref("featured");
 const pools = [
   {
     id: "harbaxis-robin",
-    name: "Calivect / Robin",
+    name: "Rivo / Robin",
     pair: "PTV / RBH",
     token: "PTV",
     profile: "Core",
@@ -70,7 +70,7 @@ const pools = [
   },
   {
     id: "harbaxis-eth",
-    name: "Calivect / ETH",
+    name: "Rivo / ETH",
     pair: "PTV / ETH",
     token: "PTV",
     profile: "Experimental",
@@ -124,7 +124,7 @@ const reviewHeading = ref(null);
 const previewInput = ref(null);
 let previousFocus = null;
 let previousOverflow = "";
-// Stable storage and pool IDs preserve previews saved before the Calivect rebrand.
+// Stable storage and pool IDs preserve previews saved before the Rivo rebrand.
 const storageKey = "harbaxis.preview-positions.v1";
 const positions = ref([]);
 const completedSteps = computed(
@@ -155,7 +155,7 @@ function readRoute() {
       ? "Positions"
       : pages.find((page) => page.toLowerCase() === hash) || "Overview";
   if (activePage.value === "Pools") exploredPools.value = true;
-  document.title = `${activePage.value} · Calivect`;
+  document.title = `${activePage.value} · Rivo`;
 }
 function goTo(page) {
   previousFocus = null;
@@ -425,10 +425,10 @@ function displayDate(value) {
       <a
         class="wordmark"
         href="#overview"
-        aria-label="Calivect home"
+        aria-label="Rivo home"
         @click.prevent="goTo('Overview')"
-        ><img src="/calivect-mark.svg" alt="" width="32" height="32" /><span
-          >calivect</span
+        ><img src="/rivo-mark.svg" alt="" width="32" height="32" /><span
+          >rivo</span
         ><span class="beta-mark">BETA</span></a
       >
       <div class="workspace-label">LIQUIDITY WORKSPACE</div>
@@ -469,7 +469,7 @@ function displayDate(value) {
           ><FlowIcon name="globe" /> Chain explorer <FlowIcon name="external"
         /></a>
         <div class="sidebar-edition">
-          <span>CALIVECT LAB</span><span>v0.1</span>
+          <span>RIVO LAB</span><span>v0.1</span>
         </div>
       </div>
     </aside>
@@ -1061,7 +1061,7 @@ function displayDate(value) {
               </p>
               <h1 id="governance-title">Build understanding. Then a voice.</h1>
               <p>
-                Community governance is part of the future design of Calivect.
+                Community governance is part of the future design of Rivo.
               </p>
             </div>
             <span class="tag tag-purple">IN DEVELOPMENT</span>
@@ -1074,7 +1074,7 @@ function displayDate(value) {
               <span class="eyebrow">GOVERNANCE STATUS</span>
               <h2>The foundation<br />comes first.</h2>
               <p>
-                Today, Calivect is a workspace for learning how liquidity works.
+                Today, Rivo is a workspace for learning how liquidity works.
                 There are no active proposals or voting contracts in this
                 release.
               </p>
@@ -1149,8 +1149,8 @@ function displayDate(value) {
       </main>
       <footer class="site-footer">
         <div>
-          <span class="footer-brand">calivect</span
-          ><span>Understand by doing.</span>
+          <span class="footer-brand">rivo</span
+          ><span>Move with intent.</span>
         </div>
         <div class="footer-links">
           <button @click="openModal('docs')">
@@ -1449,7 +1449,7 @@ function displayDate(value) {
         <template v-if="modalType === 'docs'"
           ><div class="dialog-kicker">
             <span class="dialog-icon"><FlowIcon name="book" /></span
-            ><span>CALIVECT / QUICK START</span>
+            ><span>RIVO / QUICK START</span>
           </div>
           <h2 id="dialog-title">From first look to first preview.</h2>
           <p class="dialog-lead">
@@ -1505,7 +1505,7 @@ function displayDate(value) {
               <p>
                 HOOD is the Robinhood Commons testnet utility token used by the
                 faucet. PTV is a legacy demo symbol in sample pools; it is not a
-                Calivect token. {{ nativeSymbol }} is the configured network
+                Rivo token. {{ nativeSymbol }} is the configured network
                 currency. Test tokens have no cash value.
               </p>
             </details>

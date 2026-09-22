@@ -1,11 +1,11 @@
-Brand: Calivect
-Slug: calivect
-Pronunciation: KAL-i-vekt
-Meaning: calibrate + vector; understand liquidity through measured experiments.
-Tagline: Understand by doing.
-Selected domain: calivect.xyz
-Alternatives: calivect.fun / calivect.top
-Selected X: @calivect / https://x.com/calivect
+Brand: Rivo
+Slug: rivo
+Pronunciation: REE-voh
+Meaning: river + flow; move through liquidity with intent.
+Tagline: Move with intent.
+Selected domain: rivo.xyz
+Alternatives: rivo.fun / rivo.top
+Selected X: @rivo / https://x.com/rivo
 Status: proposed destinations, not registered or owned; dated checks in ../list.txt.
 
 Product: explore illustrative models, adjust an educational mix, review an amount, save a local tab-session simulation.
@@ -13,5 +13,5 @@ Network: Robinhood Chain Testnet / 46630 / RBH.
 Token: Robinhood Commons (HOOD); contract/ABI RobinhoodCommons.
 PTV remains a sample symbol. No new token or ticker.
 
-Visual direction: deep navy workbench; ice-blue, violet and lime accents; local sans-serif; monospaced numbers; geometric asset modules; vertical navigation; model cards; simulation ledger.
-Public artwork: calivect-mark.svg, calivect-og.png, favicon.svg.
+Visual direction: dark purple market surfaces; neon mint, violet and pink accents; rounded token cards; market-style controls; pool cards; session ledger.
+Public artwork: rivo-mark.svg, rivo-og.png, favicon.svg.
