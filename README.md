@@ -1,18 +1,7 @@
-# Zuno frontend
+# OrbiVela frontend
 
-**Find your flow.** Vue 3 / Vite on Robinhood Chain Testnet, chain ID 46630.
+**Route the current.** Vue 3 / Vite on Solana.
 
-```sh
-npm install
-npm run dev
-npm test
-npm run build
-```
+The interface supports simulated pool discovery, local practice positions, responsive navigation, and optional read-only SOL and ORL balance checks through an injected Solana provider. The ORL classic SPL Token mint is deployed on Testnet with 9 decimals and zero initial supply; the pool program, faucet, deposits, swaps, and governance remain unavailable.
 
-A compact crypto interface for sample-pool discovery, asset-mix practice, saved local positions, governance context, and an optional testnet wallet. Sample APY/TVL are illustrative; saving a practice position submits no deposit.
-
-Copy `.env.example` to `.env` for a new environment. Existing `VITE_CONTRACT_ADDRESS`, `VITE_CHAIN_ID`, `VITE_RPC_URL`, and `VITE_EXPLORER_URL` retain their meaning. A zero contract address disables the faucet. Every `VITE_` value is public in the bundle.
-
-Domain and X destinations are TBD. Set `VITE_X_URL` only after choosing an account and confirming control.
-
-Robinhood Commons (HOOD), RobinhoodCommons ABI, wallet behavior, session key, and pool IDs remain compatible. No new token is introduced. `#staking` continues to open saved positions. Use root `scripts/sync-frontend.ps1` to synchronize `website/a704/` without publishing.
+Copy `.env.example` to `.env` and set `VITE_SOLANA_CLUSTER`, `VITE_SOLANA_RPC_URL`, and `VITE_SOLANA_EXPLORER_URL`. The public Testnet mint is configured in `VITE_TOKEN_MINT`. Never put a private key in a `VITE_` variable. `npm run deploy:testnet` verifies the existing mint idempotently; the signer is read only from the ignored workspace `key.txt`.

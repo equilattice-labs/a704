@@ -1,14 +1,9 @@
-Brand: Zuno
-Slug / wordmark: zuno
-Pronunciation: ZOO-noh
-Tagline: Find your flow.
-Domain / X handle: TBD. No availability or ownership claim.
-
-Product: explore sample pools, adjust an educational mix, review an amount, save a local tab-session simulation.
-Network: Robinhood Chain Testnet / 46630 / RBH.
-Token: Robinhood Commons (HOOD); contract / ABI RobinhoodCommons.
-PTV remains a sample symbol. No new token or ticker.
-
-Visual direction: crypto-native black-purple surfaces, lime actions, lavender secondary color, warm white text, rounded trading cards, pill controls, and a circular z mark.
-Palette: #101014 / #19191f / #c5fa5f / #b7a0ff / #f3f2ed.
-Public artwork: zuno-mark.svg, zuno-og.png, favicon.svg.
+Brand: OrbiVela
+Slug / wordmark: orbivela
+Ticker: ORL (classic SPL Token mint deployed on Solana Testnet)
+Tagline: Route the current.
+Network: Solana Testnet (cluster configurable through VITE_SOLANA_CLUSTER)
+Product: simulated pool routes, illustrative allocation, local practice positions
+Wallet: injected Phantom/Solflare-compatible provider, read-only native SOL and ORL balances
+Deployment: ORL mint deployed; pool program, faucet, deposits, swaps and governance remain pending
+Visual direction: deep charcoal trading desk, Solana green and purple accents, compact market tables, asset chips and dense responsive panels.

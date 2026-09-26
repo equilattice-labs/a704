@@ -1,0 +1,17 @@
+{
+  "name": "OrbiVela",
+  "symbol": "ORL",
+  "cluster": "testnet",
+  "tokenStandard": "SPL Token",
+  "tokenProgram": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+  "mint": "EvatdLdQKLV5pMzp75dCbyWbVewckB2SXuEwnoHQfEbj",
+  "decimals": 9,
+  "supply": "0",
+  "mintAuthority": "3Vx3B1J86aDUYASUUckMQAAG3PwbCxmrzCv6zugerBHC",
+  "freezeAuthority": null,
+  "onChainMetadata": false,
+  "status": "deployed",
+  "transaction": "4WtfCbE4zcbU6xhvW3TcLCczo4ruzPac9Lvrcmiv56EFJBLq5ecDHXWyB9JpSWoUPrJz8xrANCs9hLoSYMiKenCi",
+  "explorer": "https://explorer.solana.com/address/EvatdLdQKLV5pMzp75dCbyWbVewckB2SXuEwnoHQfEbj?cluster=testnet",
+  "verifiedAt": "2026-09-24T10:47:40.283Z"
+}
