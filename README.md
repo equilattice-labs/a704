@@ -1,6 +1,6 @@
-# OrbiVela frontend
+﻿# VelaCircuit frontend
 
-**Route the current.** Vue 3 / Vite on Solana.
+**Trade the tide.** Vue 3 / Vite on Solana.
 
 The interface supports simulated pool discovery, local practice positions, responsive navigation, and optional read-only SOL and ORL balance checks through an injected Solana provider. The ORL classic SPL Token mint is deployed on Testnet with 9 decimals and zero initial supply; the pool program, faucet, deposits, swaps, and governance remain unavailable.
 

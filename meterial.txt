@@ -1,7 +1,7 @@
-Brand: OrbiVela
-Slug / wordmark: orbivela
+﻿Brand: VelaCircuit
+Slug / wordmark: velacircuit
 Ticker: ORL (classic SPL Token mint deployed on Solana Testnet)
-Tagline: Route the current.
+Tagline: Trade the tide.
 Network: Solana Testnet (cluster configurable through VITE_SOLANA_CLUSTER)
 Product: simulated pool routes, illustrative allocation, local practice positions
 Wallet: injected Phantom/Solflare-compatible provider, read-only native SOL and ORL balances

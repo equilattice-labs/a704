@@ -43,6 +43,7 @@ const seed = Buffer.from(encodedSeed, 'hex')
 const authority = Keypair.fromSeed(seed)
 const mintSeed = createHash('sha256')
   .update(seed)
+  // Preserve the original deterministic seed so the deployed ORL mint remains address-stable after the display rebrand.
   .update('OrbiVela::ORL::SolanaTestnetMint::v1')
   .digest()
 seed.fill(0)
@@ -79,7 +80,7 @@ if (existing) {
     try { return JSON.parse(readFileSync(manifestPath, 'utf8')) } catch { return null }
   })()
   const record = {
-    name: 'OrbiVela',
+    name: 'VelaCircuit',
     symbol: 'ORL',
     cluster: 'testnet',
     tokenStandard: 'SPL Token',
@@ -103,7 +104,7 @@ if (existing) {
 }
 
 const record = {
-  name: 'OrbiVela',
+  name: 'VelaCircuit',
   symbol: 'ORL',
   cluster: 'testnet',
   tokenStandard: 'SPL Token',
