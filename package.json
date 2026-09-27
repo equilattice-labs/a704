@@ -1,5 +1,5 @@
 {
-  "name": "velacircuit-portal",
+  "name": "poolumi-portal",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -21,3 +21,4 @@
     "@solana/spl-token": "^0.4.15"
   }
 }
+

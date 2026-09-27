@@ -1,9 +1,12 @@
-﻿Brand: VelaCircuit
-Slug / wordmark: velacircuit
-Ticker: ORL (classic SPL Token mint deployed on Solana Testnet)
-Tagline: Trade the tide.
+﻿Brand: Poolumi
+Pronunciation: pool-oo-mee
+Name roots: pool + lumi
+Slug / wordmark: poolumi
+Brand ticker: PLUMI (proposed; not deployed)
+Technical ticker: ORL (classic SPL Token mint deployed on Solana Testnet)
+Tagline: Read the pool. Pick your route.
 Network: Solana Testnet (cluster configurable through VITE_SOLANA_CLUSTER)
 Product: simulated pool routes, illustrative allocation, local practice positions
 Wallet: injected Phantom/Solflare-compatible provider, read-only native SOL and ORL balances
 Deployment: ORL mint deployed; pool program, faucet, deposits, swaps and governance remain pending
-Visual direction: deep charcoal trading desk, Solana green and purple accents, compact market tables, asset chips and dense responsive panels.
+Visual direction: crypto trading desk, deep charcoal surfaces, Solana green and purple accents, compact market tables, asset chips and dense responsive panels.
