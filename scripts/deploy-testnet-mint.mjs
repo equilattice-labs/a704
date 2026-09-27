@@ -80,7 +80,7 @@ if (existing) {
     try { return JSON.parse(readFileSync(manifestPath, 'utf8')) } catch { return null }
   })()
   const record = {
-    name: 'Poolumi',
+    name: 'Klyriva',
     symbol: 'ORL',
     cluster: 'testnet',
     tokenStandard: 'SPL Token',
@@ -104,7 +104,7 @@ if (existing) {
 }
 
 const record = {
-  name: 'Poolumi',
+  name: 'Klyriva',
   symbol: 'ORL',
   cluster: 'testnet',
   tokenStandard: 'SPL Token',
