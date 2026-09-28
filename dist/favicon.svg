@@ -1,6 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Solrook mark">
-  <rect x="1" y="1" width="62" height="62" rx="8" fill="#3674D9"/>
-  <path d="M13 12h10v8h6v-8h8v8h6v-8h10v15h-4v25H17V27h-4z" fill="#F7F8F3"/>
-  <path d="m21 42 7-7 7 3 10-9" fill="none" stroke="#C8F169" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="45" cy="29" r="3.5" fill="#C8F169"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" role="img" aria-label="Solrook mark">
+  <rect width="400" height="400" fill="#0E110E"/>
+  <polygon points="86,86 314,86 314,122 222,122 222,314 178,314 178,122 86,122" fill="#222822"/>
+  <polygon points="129,152 280,152 280,187 222,187 166,276 136,259 183,187 129,187" fill="#70D6AE"/>
+  <polygon points="253,150 280,167 231,240 202,222" fill="#D8FA4C"/>
+  <polygon points="171,248 200,266 170,314 141,297" fill="#F15B7C"/>
 </svg>
