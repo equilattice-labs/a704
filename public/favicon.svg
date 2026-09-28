@@ -1,12 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Dravora mark">
-  <defs>
-    <linearGradient id="violetFace" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#B69CFF"/><stop offset="1" stop-color="#A78BFA"/></linearGradient>
-    <linearGradient id="cyanFace" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8EF8E8"/><stop offset="1" stop-color="#5EEAD4"/></linearGradient>
-  </defs>
-  <path d="M32 1 59 17v30L32 63 5 47V17L32 1Z" fill="#090D1A" stroke="#28364E" stroke-width="1.2" stroke-linejoin="round"/>
-  <path d="M18 10h16l18 12v20L34 54H18V10Z" fill="url(#violetFace)"/>
-  <path d="m18 10 12 7v30l-12 7V10Z" fill="#C7F36B"/>
-  <path d="m34 10 18 12v20L34 54l5-11V21l-5-11Z" fill="url(#cyanFace)"/>
-  <path d="M30 22h6l7 6v8l-7 6h-6V22Z" fill="#090D1A"/>
-  <path d="m30 22 6 0 3 3h-6v14l-3 3V22Z" fill="#111A2A"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Solrook mark">
+  <rect x="1" y="1" width="62" height="62" rx="8" fill="#3674D9"/>
+  <path d="M13 12h10v8h6v-8h8v8h6v-8h10v15h-4v25H17V27h-4z" fill="#F7F8F3"/>
+  <path d="m21 42 7-7 7 3 10-9" fill="none" stroke="#C8F169" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="45" cy="29" r="3.5" fill="#C8F169"/>
 </svg>

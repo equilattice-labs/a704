@@ -1,12 +1,12 @@
-Brand: Dravora
-Pronunciation: drah-VOR-ah
-Name roots: pool + lumi
-Slug / wordmark: dravora
-Brand ticker: DRVR (proposed; not deployed)
+Brand: Solrook
+Pronunciation: sol-rook
+Name idea: Solana-native market desk focused on readable routes and liquidity flow
+Slug / wordmark: solrook
+Project token ticker: none introduced
 Technical ticker: ORL (classic SPL Token mint deployed on Solana Testnet)
-Tagline: Move with intent.
+Tagline: Read the flow.
 Network: Solana Testnet (cluster configurable through VITE_SOLANA_CLUSTER)
 Product: simulated pool routes, illustrative allocation, local practice positions
 Wallet: injected Phantom/Solflare-compatible provider, read-only native SOL and ORL balances
 Deployment: ORL mint deployed; pool program, faucet, deposits, swaps and governance remain pending
-Visual direction: crypto trading desk, deep charcoal surfaces, Solana green and purple accents, compact market tables, asset chips and dense responsive panels.
+Visual direction: crypto trading workbench, bright neutral market surface, forest text, chartreuse primary actions, restrained coral risk states, compact market data and responsive panels.
