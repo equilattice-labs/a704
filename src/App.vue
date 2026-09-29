@@ -324,7 +324,7 @@ onBeforeUnmount(() => {
     <div class="shell-main">
       <header class="site-header">
         <div class="header-context">
-          <span class="header-label">SOLANA LIQUIDITY DESK</span>
+          <span class="header-label">8-BIT ROUTE BOARD</span>
           <span class="header-divider">/</span>
           <span class="header-page">{{ labels[activePage] }}</span>
         </div>
@@ -346,9 +346,9 @@ onBeforeUnmount(() => {
         <section v-if="activePage === 'Overview'" class="desk-view">
           <div class="workspace-intro">
             <div>
-              <span class="eyebrow">MARKET WORKSPACE <b class="eyebrow-separator">/</b> {{ CLUSTER_LABEL }}</span>
-              <h1>Market desk</h1>
-              <p>{{ BRAND_TAGLINE }} <span class="copy-divider">·</span> Sample routes and local position previews.</p>
+              <span class="eyebrow">LEVEL SELECT <b class="eyebrow-separator">/</b> {{ CLUSTER_LABEL }}</span>
+              <h1>Route board</h1>
+              <p>{{ BRAND_TAGLINE }} <span class="copy-divider">·</span> Sample routes and local quest previews.</p>
             </div>
             <div class="intro-actions">
               <span class="demo-badge"><i></i> DEMO DATA</span>
@@ -366,7 +366,7 @@ onBeforeUnmount(() => {
           <div class="trading-workspace">
             <section class="market-board" aria-labelledby="market-board-title">
               <div class="panel-heading">
-                <div><span class="eyebrow">ROUTE MONITOR</span><h2 id="market-board-title">Markets</h2></div>
+                <div><span class="eyebrow">WORLD MAP</span><h2 id="market-board-title">Markets</h2></div>
                 <button class="link-button" @click="goTo('Pools')">Full market list <FlowIcon name="arrow" /></button>
               </div>
               <div class="market-controls">
@@ -410,7 +410,7 @@ onBeforeUnmount(() => {
 
             <aside class="builder-panel" aria-labelledby="builder-title">
               <div class="panel-heading">
-                <div><span class="eyebrow">LOCAL SIMULATION</span><h2 id="builder-title">Position builder</h2></div>
+                <div><span class="eyebrow">POWER-UP LAB</span><h2 id="builder-title">Position builder</h2></div>
                 <span class="local-badge">NO SIGNATURE</span>
               </div>
               <div class="builder-pair">
@@ -434,7 +434,7 @@ onBeforeUnmount(() => {
         </section>
 
         <section v-else-if="activePage === 'Pools'" class="page-view">
-          <div class="view-heading"><div><span class="eyebrow">MARKET DIRECTORY</span><h1>Markets</h1><p>Compare sample pairs and open a local position preview.</p></div><span class="count-badge">{{ filteredPools.length }} routes</span></div>
+          <div class="view-heading"><div><span class="eyebrow">WORLD MAP</span><h1>Markets</h1><p>Compare sample pairs and open a local quest preview.</p></div><span class="count-badge">{{ filteredPools.length }} routes</span></div>
           <div class="pool-toolbar">
             <div class="segmented" aria-label="Filter market routes"><button v-for="option in ['All pools', 'Core', 'Stable', 'Experimental']" :key="option" :class="{ selected: filter === option }" :aria-pressed="filter === option" @click="filter = option">{{ option }}</button></div>
             <label class="search-box"><FlowIcon name="search" /><input v-model="search" type="search" placeholder="Search pairs" aria-label="Search pools"></label>
@@ -457,7 +457,7 @@ onBeforeUnmount(() => {
         </section>
 
         <section v-else-if="activePage === 'Positions'" class="page-view">
-          <div class="view-heading"><div><span class="eyebrow">SESSION LEDGER</span><h1>Positions</h1><p>Saved previews live in this browser tab only.</p></div><button class="primary-button" @click="goTo('Pools')"><FlowIcon name="plus" /> New preview</button></div>
+          <div class="view-heading"><div><span class="eyebrow">QUEST LOG</span><h1>Positions</h1><p>Saved previews live in this browser tab only.</p></div><button class="primary-button" @click="goTo('Pools')"><FlowIcon name="plus" /> New preview</button></div>
           <div class="ledger-summary"><span class="summary-icon"><FlowIcon name="portfolio" /></span><div><small>Saved previews</small><strong>{{ String(positions.length).padStart(2, '0') }}</strong></div><span class="local-badge">SESSION ONLY</span></div>
           <div v-if="!positions.length" class="empty-state"><span class="empty-icon"><FlowIcon name="layers" /></span><h2>No saved previews</h2><p>Select a route, set an amount and save it for this session.</p><button class="primary-button" @click="goTo('Pools')">Open markets <FlowIcon name="arrow" /></button></div>
           <div v-else class="position-list">
@@ -474,7 +474,7 @@ onBeforeUnmount(() => {
         </section>
 
         <section v-else class="page-view">
-          <div class="view-heading"><div><span class="eyebrow">NETWORK STATUS</span><h1>Protocol</h1><p>Token, wallet and program availability on the selected Solana cluster.</p></div><span class="count-badge muted">Programs pending</span></div>
+          <div class="view-heading"><div><span class="eyebrow">PROTOCOL HUB</span><h1>Protocol</h1><p>Token, wallet and program availability on the selected Solana cluster.</p></div><span class="count-badge muted">Programs pending</span></div>
           <div class="protocol-grid">
             <section class="protocol-card">
               <div class="protocol-mark"><FlowIcon name="community" /></div><span class="eyebrow">TOKEN + PROGRAM</span>

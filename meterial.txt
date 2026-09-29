@@ -1,12 +1,12 @@
 Brand: Solrook
 Pronunciation: sol-rook
-Name idea: Solana-native market desk focused on readable routes and liquidity flow
+Name idea: Solana-native route board focused on readable moves and liquidity flow
 Slug / wordmark: solrook
 Project token ticker: none introduced
 Technical ticker: ORL (classic SPL Token mint deployed on Solana Testnet)
-Tagline: Read the flow.
+Tagline: Make your move.
 Network: Solana Testnet (cluster configurable through VITE_SOLANA_CLUSTER)
 Product: simulated pool routes, illustrative allocation, local practice positions
 Wallet: injected Phantom/Solflare-compatible provider, read-only native SOL and ORL balances
 Deployment: ORL mint deployed; pool program, faucet, deposits, swaps and governance remain pending
-Visual direction: crypto trading workbench, bright neutral market surface, forest text, chartreuse primary actions, restrained coral risk states, compact market data and responsive panels.
+Visual direction: original 8-bit block art, sky-blue tile field, dark violet HUD, coin-yellow actions, pipe-green states, brick-red status accents, compact market data and responsive panels.

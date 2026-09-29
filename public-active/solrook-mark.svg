@@ -1,7 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" role="img" aria-label="Solrook mark">
-  <rect width="400" height="400" fill="#0E110E"/>
-  <polygon points="86,86 314,86 314,122 222,122 222,314 178,314 178,122 86,122" fill="#222822"/>
-  <polygon points="129,152 280,152 280,187 222,187 166,276 136,259 183,187 129,187" fill="#70D6AE"/>
-  <polygon points="253,150 280,167 231,240 202,222" fill="#D8FA4C"/>
-  <polygon points="171,248 200,266 170,314 141,297" fill="#F15B7C"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" shape-rendering="crispEdges" role="img" aria-label="Solrook block mark">
+  <rect width="400" height="400" fill="#211735"/><rect x="60" y="40" width="280" height="60" fill="#39284B"/><rect x="40" y="100" width="60" height="180" fill="#39284B"/><rect x="300" y="100" width="60" height="180" fill="#39284B"/><rect x="100" y="100" width="200" height="80" fill="#5CC8F2"/><rect x="100" y="180" width="80" height="120" fill="#5CC8F2"/><rect x="180" y="240" width="120" height="60" fill="#5CC8F2"/><rect x="240" y="120" width="60" height="60" fill="#FFD447"/><rect x="80" y="300" width="80" height="60" fill="#D94F45"/><rect x="180" y="300" width="80" height="60" fill="#D94F45"/>
 </svg>
