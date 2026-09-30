@@ -324,7 +324,7 @@ onBeforeUnmount(() => {
     <div class="shell-main">
       <header class="site-header">
         <div class="header-context">
-          <span class="header-label">8-BIT ROUTE BOARD</span>
+          <span class="header-label">MARKET WORKSPACE</span>
           <span class="header-divider">/</span>
           <span class="header-page">{{ labels[activePage] }}</span>
         </div>
@@ -346,12 +346,12 @@ onBeforeUnmount(() => {
         <section v-if="activePage === 'Overview'" class="desk-view">
           <div class="workspace-intro">
             <div>
-              <span class="eyebrow">LEVEL SELECT <b class="eyebrow-separator">/</b> {{ CLUSTER_LABEL }}</span>
-              <h1>Route board</h1>
-              <p>{{ BRAND_TAGLINE }} <span class="copy-divider">·</span> Sample routes and local quest previews.</p>
+              <span class="eyebrow">OVERVIEW <b class="eyebrow-separator">/</b> {{ CLUSTER_LABEL }}</span>
+              <h1>Market overview</h1>
+              <p>{{ BRAND_TAGLINE }} <span class="copy-divider">/</span> Compare scenarios and save local position previews.</p>
             </div>
             <div class="intro-actions">
-              <span class="demo-badge"><i></i> DEMO DATA</span>
+              <span class="demo-badge"><i></i> ILLUSTRATIVE DATA</span>
               <button class="guide-button" aria-label="Open guide" title="Open guide" @click="openModal('docs')"><FlowIcon name="book" /></button>
             </div>
           </div>
@@ -366,7 +366,7 @@ onBeforeUnmount(() => {
           <div class="trading-workspace">
             <section class="market-board" aria-labelledby="market-board-title">
               <div class="panel-heading">
-                <div><span class="eyebrow">WORLD MAP</span><h2 id="market-board-title">Markets</h2></div>
+                <div><span class="eyebrow">MARKET VIEW</span><h2 id="market-board-title">Markets</h2></div>
                 <button class="link-button" @click="goTo('Pools')">Full market list <FlowIcon name="arrow" /></button>
               </div>
               <div class="market-controls">
@@ -386,7 +386,7 @@ onBeforeUnmount(() => {
                   @click="selectPool(pool)"
                 >
                   <span :class="['coin-stack', pool.color]" aria-hidden="true"><i>{{ pool.symbols[0] }}</i><i>{{ pool.symbols[1] }}</i></span>
-                  <span class="pair-copy"><strong>{{ pool.name }}</strong><small>{{ pool.profile }} · {{ pool.fee }} fee</small></span>
+                   <span class="pair-copy"><strong>{{ pool.name }}</strong><small>{{ pool.profile }} / {{ pool.fee }} fee</small></span>
                   <span class="route-metric"><small>APR</small><b>{{ pool.apr }}%</b></span>
                   <span class="route-metric"><small>TVL</small><b>${{ pool.tvl }}M</b></span>
                   <FlowIcon name="chevron" />
@@ -410,7 +410,7 @@ onBeforeUnmount(() => {
 
             <aside class="builder-panel" aria-labelledby="builder-title">
               <div class="panel-heading">
-                <div><span class="eyebrow">POWER-UP LAB</span><h2 id="builder-title">Position builder</h2></div>
+                <div><span class="eyebrow">RESEARCH TOOL</span><h2 id="builder-title">Position review</h2></div>
                 <span class="local-badge">NO SIGNATURE</span>
               </div>
               <div class="builder-pair">
@@ -434,7 +434,7 @@ onBeforeUnmount(() => {
         </section>
 
         <section v-else-if="activePage === 'Pools'" class="page-view">
-          <div class="view-heading"><div><span class="eyebrow">WORLD MAP</span><h1>Markets</h1><p>Compare sample pairs and open a local quest preview.</p></div><span class="count-badge">{{ filteredPools.length }} routes</span></div>
+          <div class="view-heading"><div><span class="eyebrow">MARKET VIEW</span><h1>Markets</h1><p>Compare illustrative pairs and open a local position preview.</p></div><span class="count-badge">{{ filteredPools.length }} routes</span></div>
           <div class="pool-toolbar">
             <div class="segmented" aria-label="Filter market routes"><button v-for="option in ['All pools', 'Core', 'Stable', 'Experimental']" :key="option" :class="{ selected: filter === option }" :aria-pressed="filter === option" @click="filter = option">{{ option }}</button></div>
             <label class="search-box"><FlowIcon name="search" /><input v-model="search" type="search" placeholder="Search pairs" aria-label="Search pools"></label>
@@ -445,7 +445,7 @@ onBeforeUnmount(() => {
               <button class="pool-card-select" :aria-pressed="selectedPool.id === pool.id" @click="selectPool(pool)">
                 <span class="pool-card-top"><span :class="['coin-stack', pool.color]" aria-hidden="true"><i>{{ pool.symbols[0] }}</i><i>{{ pool.symbols[1] }}</i></span><span class="route-badge">{{ pool.profile }}</span></span>
                 <span class="pool-name">{{ pool.name }}</span>
-                <span class="pool-description">{{ pool.model }} · {{ pool.fee }} fee</span>
+                 <span class="pool-description">{{ pool.model }} / {{ pool.fee }} fee</span>
                 <span class="mini-chart" aria-hidden="true"><i v-for="n in 20" :key="n" :style="{ height: (22 + ((n * 17 + pool.apr * 3) % 68)) + '%' }"></i></span>
                 <span class="card-metrics"><span><small>Sample APR</small><b>{{ pool.apr }}%</b></span><span><small>Sample TVL</small><b>${{ pool.tvl }}M</b></span><span><small>24h volume</small><b>${{ pool.volume }}M</b></span></span>
               </button>
@@ -457,13 +457,13 @@ onBeforeUnmount(() => {
         </section>
 
         <section v-else-if="activePage === 'Positions'" class="page-view">
-          <div class="view-heading"><div><span class="eyebrow">QUEST LOG</span><h1>Positions</h1><p>Saved previews live in this browser tab only.</p></div><button class="primary-button" @click="goTo('Pools')"><FlowIcon name="plus" /> New preview</button></div>
+          <div class="view-heading"><div><span class="eyebrow">POSITION LOG</span><h1>Positions</h1><p>Saved previews live in this browser tab only.</p></div><button class="primary-button" @click="goTo('Pools')"><FlowIcon name="plus" /> New preview</button></div>
           <div class="ledger-summary"><span class="summary-icon"><FlowIcon name="portfolio" /></span><div><small>Saved previews</small><strong>{{ String(positions.length).padStart(2, '0') }}</strong></div><span class="local-badge">SESSION ONLY</span></div>
           <div v-if="!positions.length" class="empty-state"><span class="empty-icon"><FlowIcon name="layers" /></span><h2>No saved previews</h2><p>Select a route, set an amount and save it for this session.</p><button class="primary-button" @click="goTo('Pools')">Open markets <FlowIcon name="arrow" /></button></div>
           <div v-else class="position-list">
             <div class="position-list-head"><span>Route / created</span><span>Amount</span><span>Mix</span><span>Status</span><span></span></div>
             <article v-for="position in positions" :key="position.id" class="position-row">
-              <div class="position-name"><span :class="['coin-single', poolFor(position).color]">{{ poolFor(position).symbols[0] }}</span><div><strong>{{ poolFor(position).name }}</strong><small>{{ poolFor(position).profile }} · {{ displayDate(position.createdAt) }}</small></div></div>
+              <div class="position-name"><span :class="['coin-single', poolFor(position).color]">{{ poolFor(position).symbols[0] }}</span><div><strong>{{ poolFor(position).name }}</strong><small>{{ poolFor(position).profile }} / {{ displayDate(position.createdAt) }}</small></div></div>
               <b>{{ displayAmount(position.amount) }} <small>{{ poolFor(position).token }}</small></b>
               <b>{{ position.allocation || 50 }} / {{ 100 - (position.allocation || 50) }}</b>
               <span class="preview-status"><i></i> Preview</span>
@@ -495,7 +495,7 @@ onBeforeUnmount(() => {
         </section>
       </main>
 
-      <footer class="site-footer"><span><b>{{ BRAND_NAME }}</b><span class="footer-divider">·</span>{{ BRAND_TAGLINE }}</span><span>{{ CLUSTER_LABEL }} · read-only workspace</span></footer>
+      <footer class="site-footer"><span><b>{{ BRAND_NAME }}</b><span class="footer-divider">/</span>{{ BRAND_TAGLINE }}</span><span>{{ CLUSTER_LABEL }} / read-only workspace</span></footer>
     </div>
 
     <nav class="mobile-nav" aria-label="Mobile navigation">

@@ -1,26 +1,26 @@
 ﻿:root {
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: #16281f;
-  background: #f2f5f0;
+  color: #17212b;
+  background: #f4f5f7;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  --canvas: #f2f5f0;
+  --canvas: #f4f5f7;
   --paper: #ffffff;
-  --paper-soft: #f7f9f6;
-  --paper-green: #eaf0e9;
-  --ink: #16281f;
-  --ink-soft: #30443a;
-  --muted: #53645a;
-  --line: #dce4dc;
-  --line-strong: #c8d3c9;
-  --forest: #173126;
-  --forest-deep: #10251c;
-  --lime: #d7f45a;
-  --lime-ink: #334416;
-  --blue: #3263d7;
-  --cyan: #079aa5;
-  --coral: #d76b5e;
-  --shadow: 0 10px 28px rgba(30, 53, 40, .07);
+  --paper-soft: #f8f9fb;
+  --paper-green: #e5f1ec;
+  --ink: #17212b;
+  --ink-soft: #33414d;
+  --muted: #66717d;
+  --line: #e1e5e9;
+  --line-strong: #cbd3db;
+  --forest: #173d36;
+  --forest-deep: #0f2b25;
+  --lime: #c7e3d9;
+  --lime-ink: #155343;
+  --blue: #1f5aa6;
+  --cyan: #3d8b89;
+  --coral: #b77a31;
+  --shadow: 0 8px 24px rgba(23, 33, 43, .05);
 }
 
 * { box-sizing: border-box; }
@@ -474,7 +474,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   *, *:before, *:after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
 
-/* Gridloom 8-bit route board: an original block-art skin, with the product flow intact. */
+/* Legacy token layer retained for selector compatibility; Cairnmark rules follow below. */
 :root {
   font-family: "Courier New", Consolas, ui-monospace, monospace;
   --canvas: #5cc8f2;
@@ -600,4 +600,129 @@ img { image-rendering: pixelated; }
   .shell-main { margin-left: 0; }
   .site-header { height: 58px; }
   .market-stats, .market-board, .builder-panel, .pool-card, .protocol-card, .roadmap-card, .position-list, .ledger-summary, .empty-state { box-shadow: 3px 3px 0 var(--line); }
+}
+
+/* Cairnmark investment workspace */
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #17212b;
+  --canvas: #f4f5f7;
+  --paper: #ffffff;
+  --paper-soft: #f8f9fb;
+  --paper-green: #e5f1ec;
+  --ink: #17212b;
+  --ink-soft: #33414d;
+  --muted: #66717d;
+  --line: #e1e5e9;
+  --line-strong: #cbd3db;
+  --forest: #173d36;
+  --forest-deep: #0f2b25;
+  --lime: #d9ebe4;
+  --lime-ink: #155343;
+  --blue: #1f5aa6;
+  --cyan: #3d8b89;
+  --coral: #b77a31;
+  --shadow: 0 8px 24px rgba(23, 33, 43, .05);
+}
+
+html, body { background: var(--canvas); }
+body { color: var(--ink); background-image: none; }
+img { image-rendering: auto; }
+button, input, select { font-family: inherit; }
+.side-rail { width: 216px; padding: 22px 14px 14px; border-right: 1px solid #173d36; background: #173d36; box-shadow: none; }
+.shell-main { margin-left: 216px; }
+.brand { color: #fff; font-size: 16px; text-transform: none; }
+.brand img { border: 0; }
+.rail-network { border: 1px solid rgba(255,255,255,.17); border-radius: 4px; background: rgba(255,255,255,.05); box-shadow: none; }
+.rail-network i, .network-pill i, .demo-badge i, .asset-state i, .preview-status i { border-radius: 50%; background: #84c5a8; }
+.primary-nav a { border: 1px solid transparent; border-radius: 4px; color: #c4d5cf; text-transform: none; }
+.primary-nav a:hover { border-color: rgba(255,255,255,.12); background: rgba(255,255,255,.07); }
+.primary-nav a.active { border-color: rgba(255,255,255,.14); background: rgba(255,255,255,.12); color: #fff; box-shadow: none; }
+.primary-nav a.active:before { display: block; background: #8cc6ac; }
+.primary-nav a b, .mode-mark, .token-mark { border-radius: 4px; }
+.rail-mode, .rail-token { border: 1px solid rgba(255,255,255,.14); border-radius: 4px; background: rgba(255,255,255,.04); }
+.mode-mark, .token-mark { background: rgba(217,235,228,.13); color: #cde6da; }
+.rail-social { color: #c4d5cf; text-transform: none; }
+.site-header { height: 60px; border-bottom: 1px solid var(--line); background: rgba(255,255,255,.96); box-shadow: none; }
+.header-label, .eyebrow, .nav-caption { color: var(--muted); font-weight: 700; letter-spacing: 0; }
+.market-tape { color: var(--muted); }
+.tape-dot { border-radius: 50%; background: #56a386; }
+.tape-dot.blue { background: #5b8cc4; }
+.tape-dot.coral { background: #cf9b55; }
+.network-pill, .wallet-button, .primary-button, .secondary-button, .search-box, .segmented, .sort-control select, .guide-button, .icon-button, .quick-amounts button, .back-button { border-radius: 4px; border-width: 1px; }
+.network-pill { border-color: var(--line); background: var(--paper-soft); }
+.wallet-button { border-color: var(--forest); background: var(--forest); color: #fff; box-shadow: none; }
+.wallet-button:hover { background: #24574b; }
+.main-content { padding-top: 25px; }
+.workspace-intro h1, .view-heading h1, .panel-heading h2, .selected-market-heading h3, .pool-name, .protocol-card h2, .roadmap-card h2, .dialog-body h2 { font-family: inherit; font-weight: 650; letter-spacing: 0; }
+.workspace-intro h1, .view-heading h1 { color: var(--ink); text-transform: none; }
+.demo-badge, .local-badge, .route-badge, .count-badge { border-radius: 3px; border-width: 1px; font-weight: 650; letter-spacing: 0; text-transform: none; }
+.demo-badge { border-color: #d7e6de; background: #eef6f1; color: #35614d; box-shadow: none; }
+.guide-button, .icon-button { background: var(--paper); color: var(--ink-soft); box-shadow: none; }
+.guide-button:hover, .icon-button:hover { border-color: #91b7a6; background: #f1f7f4; color: var(--forest); }
+.market-stats, .market-board, .builder-panel, .pool-card, .protocol-card, .roadmap-card, .position-list, .ledger-summary, .pool-toolbar { border: 1px solid var(--line); border-radius: 5px; box-shadow: none; }
+.market-stats { background: var(--paper); }
+.market-stats>div { border-right: 1px solid var(--line); }
+.market-stats strong { color: var(--ink); font-weight: 650; }
+.market-stats .stat-highlight { background: #f4f8f6; }
+.market-stats .stat-highlight strong { color: var(--forest); }
+.market-board, .builder-panel, .pool-card, .protocol-card, .roadmap-card, .position-list, .ledger-summary { background: var(--paper); }
+.builder-panel { border-top: 1px solid var(--line); padding-top: 17px; }
+.link-button { color: var(--blue); font-weight: 600; text-transform: none; }
+.local-badge { border-color: #d5e5dc; background: #f0f6f2; color: #35614d; }
+.count-badge { border-color: #dce4ed; background: #f3f6fa; color: #42658f; }
+.segmented { background: var(--paper-soft); }
+.segmented button { border-radius: 3px; font-weight: 550; text-transform: none; }
+.segmented button:hover { background: #e9eef1; }
+.segmented button.selected { background: var(--forest); color: #fff; box-shadow: none; }
+.search-box { background: #fff; box-shadow: none; }
+.route-item { border-bottom: 1px solid #edf0f2; }
+.route-item:hover { background: #f8fafb; }
+.route-item.selected { box-shadow: inset 3px 0 #4b9277; background: #f2f7f4; }
+.coin-stack i { border: 1px solid #fff; border-radius: 50%; background: #dcece5; color: #28614e; box-shadow: none; }
+.coin-stack i+i { border-radius: 50%; background: #e1eaf3; color: #365d83; }
+.coin-stack.blue i { background: #dae7f4; color: #365d83; }
+.coin-stack.blue i+i { background: #ecf1f6; }
+.coin-stack.coral i { background: #f1e7d9; color: #8b632f; }
+.coin-stack.coral i+i { background: #e1eaf3; color: #365d83; }
+.selected-market, .builder-pair { border-color: var(--line); }
+.sparkline { border-bottom: 1px solid var(--line); background: repeating-linear-gradient(to bottom, transparent 0 19px, #eff2f3 19px 20px); }
+.sparkline i, .mini-chart i { border-radius: 2px 2px 0 0; background: #8bb9a4; }
+.sparkline i:nth-child(3n) { background: #6b9da0; }
+.allocation-tool { border: 1px solid var(--line); border-radius: 4px; background: var(--paper-soft); box-shadow: none; }
+.mix-wheel { border-radius: 50%; background: conic-gradient(#74ae91 var(--mix), #d4e0e5 0); border: 0; box-shadow: none; }
+.mix-wheel:before { width: 82px; height: 82px; border: 1px solid var(--line); border-radius: 50%; background: var(--paper); }
+.mix-wheel strong, .mix-wheel small { color: var(--ink); }
+.dot, .dot.coral { border-radius: 50%; }
+.primary-button { border-color: var(--forest); background: var(--forest); color: #fff; box-shadow: none; font-weight: 650; text-transform: none; }
+.primary-button:hover { background: #24574b; transform: translateY(-1px); }
+.secondary-button { border-color: var(--line-strong); background: var(--paper); color: var(--ink-soft); box-shadow: none; font-weight: 600; text-transform: none; }
+.secondary-button:hover { border-color: #91b7a6; background: #f7faf8; }
+.action-note, .disclosure { color: var(--muted); }
+.disclosure { border-top: 1px solid var(--line); }
+.protocol-status, .wallet-card, .balance-grid span, .mint-note, .token-notice { border-radius: 4px !important; border-width: 1px !important; }
+.empty-state { border: 1px dashed var(--line-strong); border-radius: 5px; background: var(--paper); box-shadow: none; }
+.position-row { border-bottom: 1px solid var(--line); }
+.preview-status i { border-radius: 50%; }
+.app-dialog { border: 1px solid var(--line-strong); border-radius: 6px; background: var(--paper); box-shadow: 0 20px 60px rgba(15, 30, 38, .18); }
+.app-dialog::backdrop { background: rgba(19, 31, 38, .48); }
+.dialog-kicker { color: var(--muted); font-weight: 650; }
+.dialog-close { box-shadow: none; }
+.toast { border: 1px solid #1b5145; border-radius: 4px; background: var(--forest); box-shadow: var(--shadow); }
+.site-footer { border-top: 1px solid var(--line); color: var(--muted); }
+.mobile-nav { border-top: 1px solid var(--line); background: rgba(255,255,255,.97); }
+.mobile-nav a { border-radius: 0; color: var(--muted); font-weight: 600; text-transform: none; }
+.mobile-nav a.active { color: var(--forest); }
+.mobile-nav a.active:before { height: 2px; background: #4b9277; }
+.mobile-nav b { border-radius: 10px; background: #d9ebe4; color: var(--forest); }
+
+@media (max-width: 900px) {
+  .side-rail { width: 198px; }
+  .shell-main { margin-left: 198px; }
+}
+@media (max-width: 640px) {
+  .side-rail { display: none; }
+  .shell-main { margin-left: 0; }
+  .site-header { height: 58px; }
+  .market-stats, .market-board, .builder-panel, .pool-card, .protocol-card, .roadmap-card, .position-list, .ledger-summary, .empty-state { box-shadow: none; }
 }

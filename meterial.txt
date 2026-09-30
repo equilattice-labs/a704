@@ -1,12 +1,12 @@
-﻿Brand: Gridloom
-Pronunciation: path-weave
-Name idea: Solana-native route board focused on readable moves and liquidity flow
-Slug / wordmark: gridloom
+﻿Brand: Cairnmark
+Pronunciation: cairn-mark
+Name idea: A clear waypoint for simulated Solana markets
+Slug / wordmark: cairnmark
 Project token ticker: none introduced
 Technical ticker: ORL (classic SPL Token mint deployed on Solana Testnet)
-Tagline: Map the route.
+Tagline: Read the market clearly.
 Network: Solana Testnet (cluster configurable through VITE_SOLANA_CLUSTER)
 Product: simulated pool routes, illustrative allocation, local practice positions
 Wallet: injected Phantom/Solflare-compatible provider, read-only native SOL and ORL balances
 Deployment: ORL mint deployed; pool program, faucet, deposits, swaps and governance remain pending
-Visual direction: original 8-bit block art, sky-blue tile field, dark violet HUD, coin-yellow actions, pipe-green states, brick-red status accents, compact market data and responsive panels.
+Visual direction: restrained investment workspace, pale canvas, white surfaces, forest navigation, lime actions, teal signals, compact market data and responsive panels.

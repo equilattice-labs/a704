@@ -1,6 +1,6 @@
-﻿# Gridloom frontend
+﻿# Cairnmark frontend
 
-**Map the route.** Vue 3 / Vite on Solana, with an original 8-bit route-board skin.
+**Read the market clearly.** Vue 3 / Vite on Solana, with a restrained investment workspace skin.
 
 The interface supports simulated pool discovery, local practice positions, responsive navigation, and optional read-only SOL and ORL balance checks through an injected Solana provider. The ORL classic SPL Token mint is deployed on Testnet with 9 decimals and zero initial supply; the pool program, faucet, deposits, swaps, and governance remain unavailable.
 
