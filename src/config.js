@@ -1,13 +1,13 @@
-export const SOLANA_CLUSTER = import.meta.env.VITE_SOLANA_CLUSTER || 'testnet'
+﻿export const SOLANA_CLUSTER = import.meta.env.VITE_SOLANA_CLUSTER || 'testnet'
 const DEFAULT_RPC_URL = SOLANA_CLUSTER === 'testnet'
   ? 'https://solana-testnet-rpc.publicnode.com'
   : `https://api.${SOLANA_CLUSTER}.solana.com`
 export const RPC_URL = import.meta.env.VITE_SOLANA_RPC_URL || DEFAULT_RPC_URL
 export const EXPLORER_URL = import.meta.env.VITE_SOLANA_EXPLORER_URL || 'https://explorer.solana.com'
-export const BRAND_NAME = 'Pathweave'
-export const BRAND_SLUG = 'pathweave'
-export const BRAND_TAGLINE = 'Weave the path.'
-export const BRAND_MARK_URL = '/pathweave-mark.svg'
+export const BRAND_NAME = 'Gridloom'
+export const BRAND_SLUG = 'gridloom'
+export const BRAND_TAGLINE = 'Map the route.'
+export const BRAND_MARK_URL = '/gridloom-mark.svg'
 export const TOKEN_NAME = 'ORL'
 export const TOKEN_SYMBOL = 'ORL'
 const DEFAULT_TESTNET_MINT = 'EvatdLdQKLV5pMzp75dCbyWbVewckB2SXuEwnoHQfEbj'
