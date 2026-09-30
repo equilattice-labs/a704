@@ -80,8 +80,8 @@ if (existing) {
     try { return JSON.parse(readFileSync(manifestPath, 'utf8')) } catch { return null }
   })()
   const record = {
-    name: 'Cairnmark',
-    symbol: 'ORL',
+    name: 'Aureline configured market asset',
+    symbol: 'YES',
     cluster: 'testnet',
     tokenStandard: 'SPL Token',
     tokenProgram: TOKEN_PROGRAM_ID.toBase58(),
@@ -104,8 +104,8 @@ if (existing) {
 }
 
 const record = {
-  name: 'Cairnmark',
-  symbol: 'ORL',
+  name: 'Aureline configured market asset',
+  symbol: 'YES',
   cluster: 'testnet',
   tokenStandard: 'SPL Token',
   tokenProgram: TOKEN_PROGRAM_ID.toBase58(),

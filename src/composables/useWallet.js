@@ -1,4 +1,4 @@
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+﻿import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { Connection, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { CLUSTER_LABEL, EXPLORER_URL, RPC_URL, SOLANA_CLUSTER, TOKEN_MINT } from '../config'
 
@@ -40,7 +40,7 @@ async function readAssociatedTokenBalance(connection, owner, mint) {
     connection.getAccountInfo(associatedAddress, 'confirmed'),
   ])
   if (!mintAccount?.owner.equals(TOKEN_PROGRAM_ID) || mintAccount.data.length < 45 || mintAccount.data[45] !== 1) {
-    throw new Error('Configured ORL mint account is not readable.')
+    throw new Error('Configured market-asset mint account is not readable.')
   }
   if (!tokenAccount) return '0'
   if (
@@ -49,7 +49,7 @@ async function readAssociatedTokenBalance(connection, owner, mint) {
     !sameBytes(tokenAccount.data.subarray(0, 32), mint.toBuffer()) ||
     !sameBytes(tokenAccount.data.subarray(32, 64), owner.toBuffer())
   ) {
-    throw new Error('Associated ORL token account is invalid.')
+    throw new Error('Associated outcome-share account is invalid.')
   }
   return formatTokenAmount(readU64LittleEndian(tokenAccount.data, 64), mintAccount.data[44])
 }
@@ -60,7 +60,7 @@ export function useWallet() {
   const walletError = ref(''); const tokenError = ref(''); const tokenNotice = ref(''); const tokenConfigured = computed(() => Boolean(TOKEN_MINT))
   const walletCluster = ref('unknown')
   const correctNetwork = computed(() => walletCluster.value === 'unknown' ? null : walletCluster.value === SOLANA_CLUSTER)
-  const claimStatus = ref('disabled'); const claimMessage = ref('ORL is live on Testnet, but no faucet program is deployed.')
+  const claimStatus = ref('disabled'); const claimMessage = ref('Outcome shares are configured on Testnet, but no faucet program is deployed.')
   const mintAddress = ref(TOKEN_MINT)
   let provider = null; let connection = null; let disposed = false; let accountHandler = null; let disconnectHandler = null
   let balanceRequest = 0
@@ -108,12 +108,12 @@ export function useWallet() {
             if (!isCurrentRequest()) return false
             tokenBalance.value = await readAssociatedTokenBalance(connection, publicKey, new PublicKey(mintAddress.value))
             if (!isCurrentRequest()) return false
-            tokenNotice.value = 'This RPC does not allow token-account enumeration; the displayed ORL amount is from your associated account only.'
+            tokenNotice.value = 'This RPC does not allow token-account enumeration; the displayed outcome-share amount is from your associated account only.'
           }
         } catch {
           if (!isCurrentRequest()) return false
           tokenBalance.value = null
-          tokenError.value = 'Could not read ORL on this RPC. Check that your wallet and mint use the configured cluster.'
+          tokenError.value = 'Could not read the configured outcome shares on this RPC. Check that your wallet and mint use the configured cluster.'
         }
       }
       return true
@@ -145,7 +145,7 @@ export function useWallet() {
     walletError.value = ''
     try { await wallet?.disconnect?.() } catch { /* already disconnected */ }
   }
-  async function claimFaucet() { claimStatus.value = 'disabled'; claimMessage.value = 'ORL is live on Testnet, but no faucet program is deployed.'; return false }
+  async function claimFaucet() { claimStatus.value = 'disabled'; claimMessage.value = 'Outcome shares are configured on Testnet, but no faucet program is deployed.'; return false }
   onMounted(() => {
     const wallet = getProvider(false)
     if (!wallet) return

@@ -1,6 +1,6 @@
 {
-  "name": "Cairnmark",
-  "symbol": "ORL",
+  "name": "Aureline configured market asset",
+  "symbol": "YES",
   "cluster": "testnet",
   "tokenStandard": "SPL Token",
   "tokenProgram": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",

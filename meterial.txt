@@ -1,12 +1,12 @@
-﻿Brand: Cairnmark
-Pronunciation: cairn-mark
-Name idea: A clear waypoint for simulated Solana markets
-Slug / wordmark: cairnmark
+﻿Brand: Aureline
+Pronunciation: aure-line
+Name idea: A clear line through simulated Solana prediction markets
+Slug / wordmark: aureline
 Project token ticker: none introduced
-Technical ticker: ORL (classic SPL Token mint deployed on Solana Testnet)
-Tagline: Read the market clearly.
+Technical asset: configured market-asset mint (classic SPL Token on Solana Testnet)
+Tagline: See the signal.
 Network: Solana Testnet (cluster configurable through VITE_SOLANA_CLUSTER)
-Product: simulated pool routes, illustrative allocation, local practice positions
-Wallet: injected Phantom/Solflare-compatible provider, read-only native SOL and ORL balances
-Deployment: ORL mint deployed; pool program, faucet, deposits, swaps and governance remain pending
-Visual direction: restrained investment workspace, pale canvas, white surfaces, forest navigation, lime actions, teal signals, compact market data and responsive panels.
+Product: simulated event contracts, illustrative positions, local practice markets
+Wallet: injected Phantom/Solflare-compatible provider, read-only native SOL and configured market-asset balances
+Deployment: configured market-asset mint deployed; prediction-market program, faucet, deposits, swaps and governance remain pending
+Visual direction: restrained Apple-inspired prediction-market workspace, pale canvas, white surfaces, quiet navigation, precise accent signals, compact event data and responsive panels.

@@ -155,7 +155,7 @@ test('token actions stay disabled because no faucet program is deployed', async 
   fixture.unmount()
 })
 
-test('ORL balance adds multiple token accounts without floating point loss', async () => {
+test('market asset balance adds multiple token accounts without floating point loss', async () => {
   const tokenAccount = (amount) => ({ account: { data: { parsed: { info: { tokenAmount: { amount, decimals: 9 } } } } } })
   const fixture = setup({
     cluster: 'testnet',
@@ -171,7 +171,7 @@ test('ORL balance adds multiple token accounts without floating point loss', asy
   fixture.unmount()
 })
 
-test('associated token account fallback reads ORL when the RPC blocks indexed account lists', async () => {
+test('associated token account fallback reads the configured asset when the RPC blocks indexed account lists', async () => {
   const mintData = new Uint8Array(82)
   mintData[44] = 9
   mintData[45] = 1
@@ -194,13 +194,13 @@ test('associated token account fallback reads ORL when the RPC blocks indexed ac
   fixture.unmount()
 })
 
-test('token RPC failure preserves the native SOL balance and reports a mint-specific error', async () => {
+test('token RPC failure preserves the native SOL balance and reports a configured asset error', async () => {
   const fixture = setup({ cluster: 'testnet', tokenMint: 'MintAddress', rpcUrl: 'https://provider.example', tokenError: true, ataError: true })
   await fixture.api.connectWallet()
   await settle()
   assert.equal(fixture.api.balance.value, '1.25')
   assert.equal(fixture.api.tokenBalance.value, null)
   assert.equal(fixture.api.walletError.value, '')
-  assert.match(fixture.api.tokenError.value, /ORL.*configured cluster/i)
+  assert.match(fixture.api.tokenError.value, /configured outcome shares.*configured cluster/i)
   fixture.unmount()
 })

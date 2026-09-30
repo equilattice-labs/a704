@@ -4,12 +4,12 @@ const DEFAULT_RPC_URL = SOLANA_CLUSTER === 'testnet'
   : `https://api.${SOLANA_CLUSTER}.solana.com`
 export const RPC_URL = import.meta.env.VITE_SOLANA_RPC_URL || DEFAULT_RPC_URL
 export const EXPLORER_URL = import.meta.env.VITE_SOLANA_EXPLORER_URL || 'https://explorer.solana.com'
-export const BRAND_NAME = 'Cairnmark'
-export const BRAND_SLUG = 'cairnmark'
-export const BRAND_TAGLINE = 'Read the market clearly.'
-export const BRAND_MARK_URL = '/cairnmark-mark.svg'
-export const TOKEN_NAME = 'ORL'
-export const TOKEN_SYMBOL = 'ORL'
+export const BRAND_NAME = 'Aureline'
+export const BRAND_SLUG = 'aureline'
+export const BRAND_TAGLINE = 'See the signal.'
+export const BRAND_MARK_URL = '/aureline-mark.svg'
+export const TOKEN_NAME = 'Outcome shares'
+export const TOKEN_SYMBOL = 'YES'
 const DEFAULT_TESTNET_MINT = 'EvatdLdQKLV5pMzp75dCbyWbVewckB2SXuEwnoHQfEbj'
 export const TOKEN_MINT = import.meta.env.VITE_TOKEN_MINT || (SOLANA_CLUSTER === 'testnet' ? DEFAULT_TESTNET_MINT : '')
 export const TOKEN_EXPLORER_URL = TOKEN_MINT ? `${EXPLORER_URL}/address/${TOKEN_MINT}?cluster=${SOLANA_CLUSTER}` : ''
