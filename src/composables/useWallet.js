@@ -1,4 +1,4 @@
-﻿import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { Connection, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { CLUSTER_LABEL, EXPLORER_URL, RPC_URL, SOLANA_CLUSTER, TOKEN_MINT } from '../config'
 

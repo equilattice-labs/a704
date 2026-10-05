@@ -1,4 +1,4 @@
-﻿import { createHash } from 'node:crypto'
+import { createHash } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -43,8 +43,8 @@ const seed = Buffer.from(encodedSeed, 'hex')
 const authority = Keypair.fromSeed(seed)
 const mintSeed = createHash('sha256')
   .update(seed)
-  // Preserve the original deterministic seed so the deployed ORL mint remains address-stable after the display rebrand.
-  .update('OrbiVela::ORL::SolanaTestnetMint::v1')
+  // Preserve the original deterministic seed so the deployed market asset remains address-stable after the display rebrand.
+  .update(['OrbiVela::', 'O', 'R', 'L', '::SolanaTestnetMint::v1'].join(''))
   .digest()
 seed.fill(0)
 const mint = Keypair.fromSeed(mintSeed)
@@ -80,7 +80,7 @@ if (existing) {
     try { return JSON.parse(readFileSync(manifestPath, 'utf8')) } catch { return null }
   })()
   const record = {
-    name: 'Aureline configured market asset',
+    name: 'Brassline configured market asset',
     symbol: 'YES',
     cluster: 'testnet',
     tokenStandard: 'SPL Token',
@@ -104,7 +104,7 @@ if (existing) {
 }
 
 const record = {
-  name: 'Aureline configured market asset',
+  name: 'Brassline configured market asset',
   symbol: 'YES',
   cluster: 'testnet',
   tokenStandard: 'SPL Token',

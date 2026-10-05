@@ -1,13 +1,13 @@
-﻿export const SOLANA_CLUSTER = import.meta.env.VITE_SOLANA_CLUSTER || 'testnet'
+export const SOLANA_CLUSTER = import.meta.env.VITE_SOLANA_CLUSTER || 'testnet'
 const DEFAULT_RPC_URL = SOLANA_CLUSTER === 'testnet'
   ? 'https://solana-testnet-rpc.publicnode.com'
   : `https://api.${SOLANA_CLUSTER}.solana.com`
 export const RPC_URL = import.meta.env.VITE_SOLANA_RPC_URL || DEFAULT_RPC_URL
 export const EXPLORER_URL = import.meta.env.VITE_SOLANA_EXPLORER_URL || 'https://explorer.solana.com'
-export const BRAND_NAME = 'Aureline'
-export const BRAND_SLUG = 'aureline'
-export const BRAND_TAGLINE = 'See the signal.'
-export const BRAND_MARK_URL = '/aureline-mark.svg'
+export const BRAND_NAME = 'Brassline'
+export const BRAND_SLUG = 'brassline'
+export const BRAND_TAGLINE = 'Tune into the signal.'
+export const BRAND_MARK_URL = '/brassline-mark.svg'
 export const TOKEN_NAME = 'Outcome shares'
 export const TOKEN_SYMBOL = 'YES'
 const DEFAULT_TESTNET_MINT = 'EvatdLdQKLV5pMzp75dCbyWbVewckB2SXuEwnoHQfEbj'

@@ -1,12 +1,12 @@
-﻿Brand: Aureline
-Pronunciation: aure-line
-Name idea: A clear line through simulated Solana prediction markets
-Slug / wordmark: aureline
+Brand: Brassline
+Pronunciation: brass-line
+Name idea: A durable line for tuning market signals
+Slug / wordmark: brassline
 Project token ticker: none introduced
 Technical asset: configured market-asset mint (classic SPL Token on Solana Testnet)
-Tagline: See the signal.
+Tagline: Tune into the signal.
 Network: Solana Testnet (cluster configurable through VITE_SOLANA_CLUSTER)
 Product: simulated event contracts, illustrative positions, local practice markets
 Wallet: injected Phantom/Solflare-compatible provider, read-only native SOL and configured market-asset balances
-Deployment: configured market-asset mint deployed; prediction-market program, faucet, deposits, swaps and governance remain pending
-Visual direction: restrained Apple-inspired prediction-market workspace, pale canvas, white surfaces, quiet navigation, precise accent signals, compact event data and responsive panels.
+Deployment: configured market-asset mint deployed; prediction-market execution, settlement and issuance remain pending
+Visual direction: retro signal-room prediction-market workspace, warm paper surfaces, brass accents, readable event data and responsive panels.
