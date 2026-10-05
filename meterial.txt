@@ -1,7 +1,7 @@
-Brand: Brassline
-Pronunciation: brass-line
+Brand: Qurta
+Pronunciation: kur-ta
 Name idea: A durable line for tuning market signals
-Slug / wordmark: brassline
+Slug / wordmark: qurta
 Project token ticker: none introduced
 Technical asset: configured market-asset mint (classic SPL Token on Solana Testnet)
 Tagline: Tune into the signal.

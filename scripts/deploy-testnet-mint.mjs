@@ -80,7 +80,7 @@ if (existing) {
     try { return JSON.parse(readFileSync(manifestPath, 'utf8')) } catch { return null }
   })()
   const record = {
-    name: 'Brassline configured market asset',
+    name: 'Qurta configured market asset',
     symbol: 'YES',
     cluster: 'testnet',
     tokenStandard: 'SPL Token',
@@ -104,7 +104,7 @@ if (existing) {
 }
 
 const record = {
-  name: 'Brassline configured market asset',
+  name: 'Qurta configured market asset',
   symbol: 'YES',
   cluster: 'testnet',
   tokenStandard: 'SPL Token',

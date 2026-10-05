@@ -1,4 +1,4 @@
-# Brassline frontend
+# Qurta frontend
 
 **Tune into the signal.** Vue 3 / Vite on Solana, with a retro prediction-market workspace skin.
 
